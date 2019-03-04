@@ -1,4 +1,17 @@
 # e-Hotel Manager
 E-Hotel manager school project for CSI2132. 
 
-Creators: Christopher Francis and Jaimin Patel
+## Built With
+
+* HTML5
+* CSS3, Bootstrap 4.1.1
+* JavaScript
+* Ruby on Rails 5.2.2
+* Ruby 2.5.0
+* SQLite 3.22.0
+
+## Contribution
+
+Creators: 
+* Christopher Francis (8661478) 
+* Jaimin Patel (8721083)
