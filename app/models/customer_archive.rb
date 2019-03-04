@@ -1,0 +1,2 @@
+class CustomerArchive < ApplicationRecord
+end
