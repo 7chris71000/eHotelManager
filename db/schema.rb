@@ -12,8 +12,4 @@
 
 ActiveRecord::Schema.define(version: 0) do
 
-  create_table "customers", id: false, force: :cascade do |t|
-    t.integer "column1"
-  end
-
 end
