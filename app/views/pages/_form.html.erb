@@ -1,0 +1,26 @@
+<%= form_tag("/hotels", method: "get") do %>
+<!-- checkin date must not be before checkout -->
+	<%= label_tag :date_start, "Checkin Date" %>
+	<%= date_field :stay, :date_start %><br>
+
+	<%= label_tag :date_end, "Checkout Date" %>
+	<%= date_field :stay, :date_end %><br>
+
+	<%= label_tag :capacity, "Room Capacity" %>
+	<%= text_field_tag :capacity %><br>
+
+	<%= label_tag :chain, "Hotel Chain" %>
+	<%= text_field_tag :chain %><br>
+
+	<%= label_tag :rating, "Star Rating" %>
+	<%= text_field_tag :rating %><br>
+
+	<%= label_tag :number_of_rooms, "Total Number of Rooms" %>
+	<%= text_field_tag :number_of_rooms %><br>
+
+	<%= label_tag :price, "Room Price" %>
+	<%= text_field_tag :price %><br>
+
+	<%= submit_tag "Submit" %>
+
+<% end %>

@@ -1,6 +1,7 @@
 class HotelsController < ApplicationController
 
 	def index
+		@form_data = params
 	end
 
 	def new
