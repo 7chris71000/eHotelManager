@@ -1,0 +1,12 @@
+drop table hotel_chains;
+drop table hotels;
+drop table employees;
+drop table rooms;
+drop table customers;
+drop table archive;
+drop table customer_archives;
+drop table customer_rooms;
+drop table amenities;
+drop table roles;
+drop table email_addresses;
+drop table phone_numbers;
