@@ -58,7 +58,7 @@ CREATE TABLE archive (
 	Price numeric(6,2),
 	Capacity int,
 	BookedRented varchar(255),
-	DateOfRegistration date;
+	DateOfRegistration date,
 	primary key(ArchiveID)
 );
 
@@ -102,3 +102,13 @@ CREATE TABLE phone_numbers (
 	PhoneNo numeric(10,0),
 	foreign key(ChainID) references hotel_chain
 );
+
+-- Hotel Chain and Hotel Data
+
+INSERT INTO hotel_chain
+VALUES 
+	( 1, "Hotel Chain 1", "Address 123 City", 14),
+	( 2, "Hotel Chain 2", "Address 234 City", 45),
+	( 3, "Hotel Chain 3", "Address 345 City", 25),
+	( 4, "Hotel Chain 4", "Address 456 City", 10),
+	( 5, "Hotel Chain 5", "Address 567 City", 46);
