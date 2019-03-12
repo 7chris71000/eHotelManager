@@ -2,5 +2,39 @@
 	Hotels Home
 </p>
 <p>
-	<%= @form_data %>
+	<%= @hotels[0] %>
 </p>
+
+
+<table style="border: 1px solid black; border-collapse: collapse; text-align: center">
+  <tr>
+    <th>Address</th>
+    <th>City</th>
+    <th>Contact Email</th>
+    <th>Number of Rooms</th>
+    <th>Star Rating</th>
+    <th>Chain</th>
+    <th>Price</th>
+    <th>Status</th>
+    <th>View</th>
+    <th>Capacity</th>
+  </tr>
+  <% @hotels.each do |hotel| %>
+  <tr>
+  	<td><%= hotel["Address"] %></td>
+  	<td><%= hotel["City"] %></td>
+  	<td><%= hotel["ContactEmail"] %></td>
+  	<td><%= hotel["NoOfRooms"] %></td>
+  	<td><%= hotel["Category"] %></td>
+  	<td><%= hotel["Name"] %></td>
+  	<td><%= hotel["Price"] %></td>
+  	<td><%= hotel["Status"] %></td>
+  	<td><%= hotel["View"] %></td>
+  	<td><%= hotel["Capacity"] %></td>
+  </tr>
+  <% end %>
+</table>
+<br>
+<br>
+<br>
+<%= @form_data %>
