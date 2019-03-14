@@ -8,6 +8,7 @@
 
 <table style="border: 1px solid black; border-collapse: collapse; text-align: center">
   <tr>
+    <th>Room Number</th>
     <th>Address</th>
     <th>City</th>
     <th>Contact Email</th>
@@ -21,7 +22,8 @@
   </tr>
   <% @hotels.each do |hotel| %>
   <tr>
-  	<td><%= hotel["Address"] %></td>
+  	<td><%= link_to hotel["RoomID"], room_path(hotel["RoomID"]) %></td>
+    <td><%= hotel["Address"] %></td>
   	<td><%= hotel["City"] %></td>
   	<td><%= hotel["ContactEmail"] %></td>
   	<td><%= hotel["NoOfRooms"] %></td>
