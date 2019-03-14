@@ -1,7 +1,7 @@
-drop table hotel_chains;
+drop table rooms;
 drop table hotels;
 drop table employees;
-drop table rooms;
+drop table hotel_chains;
 drop table customers;
 drop table archive;
 drop table customer_archives;
