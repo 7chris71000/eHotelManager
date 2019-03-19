@@ -59,7 +59,8 @@ CREATE TABLE archive (
 	Price numeric(6,2),
 	Capacity int,
 	BookedRented varchar(255),
-	DateOfRegistration date,
+	ArchiveCheckin date,
+	ArchiveCheckout date,
 	primary key(ArchiveID)
 );
 
@@ -74,7 +75,8 @@ CREATE TABLE customer_archives (
 CREATE TABLE customer_rooms (
 	RoomID int,
 	CustomerID int,
-	DateOfRegistration date,
+	Checkin date,
+	Checkout date,
 	foreign key(RoomID) references rooms
 	foreign key(CustomerID) references customers	
 );
@@ -168,5 +170,10 @@ VALUES
 	-- Room 1
 	( 1, 140.00, 2, 1, "Booked", "Sea", 55),
 	( 2, 140.00, 22, 1, "Rented", "Mountain", 35)
+	;
+
+INSERT INTO customers
+VALUES
+	( 1 , 'Christopher', 'Francis', 123456, 'address 123', 2019-03-07)
 	;
 

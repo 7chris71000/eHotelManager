@@ -25,10 +25,42 @@ class RoomsController < ApplicationController
 		start = params["stay"]["date_start"]
 		ending = params["stay"]["date_end"]
 
-		if start >= ending
-			# Should not work 
+		get_all_rooms
+
+		noVacancy = false
+
+		@booked_rooms.each do |room|
+
+			a = room["Checkin"]
+			b = room["Checkout"]
+			n = start
+			m = ending
+
+			# Checkin and checkout ~between current
+			if (n.between?(a,b)) or (m.between?(a,b)) or (n < a and b < m) or (n >= m)
+				noVacancy = true
+			end
+		
+			break if noVacancy
+		end
+
+		if noVacancy
+			# Do not add to database and send back to update form 
+			print("\nError in adding room due to times requested.\n\n")
+			redirect_to edit_room_path
+			return
+
 		else 
-			# Should work
+			# Update database 
+			print("\nUpdating the Database\n\n")
+			
+			ActiveRecord::Base.connection.execute(
+				"
+				INSERT INTO customer_rooms
+				VALUES 
+				( #{params[:id]}, 1, '#{start}', '#{ending}');
+				"
+			);
 		end
 
 
@@ -58,6 +90,16 @@ class RoomsController < ApplicationController
 
 			@room = room.first()
 
+		end
+
+		def get_all_rooms
+			@booked_rooms = ActiveRecord::Base.connection.execute(
+				"
+				SELECT * 
+				FROM customer_rooms
+				;
+				"
+			);
 		end
 
 end
