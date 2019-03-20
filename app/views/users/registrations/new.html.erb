@@ -21,14 +21,12 @@
     <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
   </div>
 
-  <div class="field">
-    <%= f.label "Are you a customer?" %>
-    <%= f.check_box :customer %>
-  </div>
-
-  <div class="field">
-    <%= f.label "Are you a employee?" %>
-    <%= f.check_box :employee %>
+  <div>
+    <% f.label "Are you a customer or employee?" %>
+    <%= f.label :customer, "Customer", :value => "true"  %>
+    <%= f.radio_button :customer, true, :checked => true %>
+    <%= f.label :customer, "Employee", :value => "false" %>
+    <%= f.radio_button :customer, false %>
   </div>
 
   <div class="actions">
