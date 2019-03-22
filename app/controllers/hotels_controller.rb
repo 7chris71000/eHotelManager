@@ -21,6 +21,7 @@ class HotelsController < ApplicationController
 				AND Category LIKE '#{rating}'
 				AND NoOfRooms LIKE '#{noOfRooms}'
 				AND Price LIKE '#{price}'
+				ORDER BY rooms.RoomID
 				;
 				"
 			);

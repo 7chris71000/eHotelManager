@@ -68,6 +68,16 @@ class RoomsController < ApplicationController
 	end
 
 	def destroy
+
+		ActiveRecord::Base.connection.execute(
+				"
+				DELETE 
+				FROM rooms
+				WHERE RoomID = #{params[:id]}
+				;
+				"
+			);
+
 	end
 
 	private
