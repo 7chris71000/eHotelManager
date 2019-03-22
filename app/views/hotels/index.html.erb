@@ -19,20 +19,30 @@
     <th>Status</th>
     <th>View</th>
     <th>Capacity</th>
+    <th>Book Room</th>
+    <%if !current_user.customer %>
+      <th>Update Room</th>
+      <th>Delete Room</th>
+    <% end %>
   </tr>
   <% @hotels.each do |hotel| %>
   <tr>
   	<td><%= link_to hotel["RoomID"], room_path(hotel["RoomID"]) %></td>
     <td><%= hotel["Address"] %></td>
-  	<td><%= hotel["City"] %></td>
-  	<td><%= hotel["ContactEmail"] %></td>
-  	<td><%= hotel["NoOfRooms"] %></td>
-  	<td><%= hotel["Category"] %></td>
-  	<td><%= hotel["Name"] %></td>
-  	<td><%= hotel["Price"] %></td>
-  	<td><%= hotel["Status"] %></td>
-  	<td><%= hotel["View"] %></td>
-  	<td><%= hotel["Capacity"] %></td>
+    <td><%= hotel["City"] %></td>
+    <td><%= hotel["ContactEmail"] %></td>
+    <td><%= hotel["NoOfRooms"] %></td>
+    <td><%= hotel["Category"] %></td>
+    <td><%= hotel["Name"] %></td>
+    <td><%= hotel["Price"] %></td>
+    <td><%= hotel["Status"] %></td>
+    <td><%= hotel["View"] %></td>
+    <td><%= hotel["Capacity"] %></td>
+    <td><%= link_to 'Book Room', edit_room_path(hotel["RoomID"]) %></td>
+    <% if !current_user.customer %>
+      <td><%= link_to 'Update Room', edit_room_path(hotel["RoomID"]) %></td>
+      <td><%= link_to "Delete", "/rooms/#{hotel["RoomID"]}", {method: :delete, data: {confirm: "Are you sure you want to delete this room?"}} %></td>
+    <% end %>
   </tr>
   <% end %>
 </table>

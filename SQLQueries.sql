@@ -169,7 +169,7 @@ INSERT INTO rooms
 VALUES
 	-- Room 1
 	( 1, 140.00, 2, 1, "Booked", "Sea", 55),
-	( 2, 140.00, 22, 1, "Rented", "Mountain", 35)
+	( 2, 140.00, 5, 1, "Rented", "Mountain", 35)
 	;
 
 INSERT INTO customers
