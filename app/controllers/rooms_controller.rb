@@ -12,6 +12,7 @@ class RoomsController < ApplicationController
 	end
 
 	def edit
+		@title = "Book Room"
 		set_room
 	end
 

@@ -1,37 +1,61 @@
-<h2>Sign up</h2>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
+<!-- Above old -->
+<div class="row">
+  <div class="col-sm"></div>
+  <div id="left" class="col-sm-6">
+    <div class="card">
+      <div class="card-body">
+        <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+        <%= render "devise/shared/error_messages", resource: resource %>
+        <h4 class="card-title" style="color: #FF250D;">Sign Up</h4>
+        <ul id="signup"> 
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+          <li><%= text_field_tag :fname, "", placeholder: "First Name", class: "form-control" %></li>
+          <li><%= text_field_tag :lname, "", placeholder: "Last Name", class: "form-control" %></li>
+          <li><%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "Email", class: "form-control" %></li>
+          <li><%= text_field_tag :ssn, "", placeholder: "SIN/SSN", class: "form-control" %></li>
+
+          
+          <li><%= text_field_tag :address, "", placeholder: "Address (e.g. 123 Address Ave)", class: "form-control" %></li>
+
+          <li>  
+            <select class="form-control" id="sel2" name="sel2" placeholder="Account Type" onchange="yesnoCheck(this);">
+              <option value="customer">Customer</option>
+              <option value="employee">Employee</option>
+            </select>
+          </li>
+          
+          <li id="hotel">  
+
+            <select class="form-control" name="selHotelID" placeholder="Account Type">
+              <option value="" disabled selected>Hotel ID</option>
+              <% @hotels.each do |hotel| %>
+              <option value="<%= hotel['HotelID'] %>">
+                <%= hotel["HotelID"] %>
+              </option>
+              <% end %>
+            </select>
+          </li>
+          <li><%= f.password_field :password, autocomplete: "new-password", placeholder: "Password (#{@minimum_password_length} Characters Minimum)", class: "form-control" %></li>
+          <li><%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: "Confirm Password", class: "form-control" %></li>
+          
+          <li><%= f.submit "Sign up", class: "btn btn-danger" %></li>   
+
+        </ul>
+        <% end %>
+        <%= render "users/shared/links" %>
+      </div>
+    </div>
   </div>
+  <div class="col-sm"></div>
+</div>
 
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
-
-  <div>
-    <% f.label "Are you a customer or employee?" %>
-    <%= f.label :customer, "Customer", :value => "true"  %>
-    <%= f.radio_button :customer, true, :checked => true %>
-    <%= f.label :customer, "Employee", :value => "false" %>
-    <%= f.radio_button :customer, false %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
-<% end %>
-
-<%= render "users/shared/links" %>
+<script type="text/javascript">
+  function yesnoCheck(that) {
+    if (that.value == "employee") {
+      document.getElementById("hotel").style.display = "block";
+    } else {
+      document.getElementById("hotel").style.display = "none";
+    }
+  }
+</script>
