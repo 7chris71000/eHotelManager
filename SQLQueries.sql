@@ -46,8 +46,8 @@ CREATE TABLE customers (
 	CustomerID int,
 	CFirstName varchar(255),
 	CLastName varchar(255),
-	SSNSIN int,
 	CustomerAddress varchar(255),
+	SSNSIN int,
 	DateOfRegistration date,
 	primary key(CustomerID)
 );
@@ -174,6 +174,6 @@ VALUES
 
 INSERT INTO customers
 VALUES
-	( 1 , 'Christopher', 'Francis', 123456, 'address 123', 2019-03-07)
+	( 1 , 'Christopher', 'Francis', 'address 123', 123456, 2019-03-07)
 	;
 
