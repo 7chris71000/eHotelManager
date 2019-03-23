@@ -46,21 +46,40 @@
                     <h4 class="card-title" style="color: #FF250D;">Search Filter</h4>
                     <ul id="search"> 
                       <li>
-                        <h5 style="color: #FF250D;">Check-In Date:</h5>
+                        <h5 style="color: #FF250D; padding: 2.5% 0 1.5% 0;">Check-In Date:</h5>
                             <input type="date" class="form-control" id="in-date">
                       </li>
                       <li>
-                        <h5 style="color: #FF250D;">Check-Out Date:</h5>
+                        <h5 style="color: #FF250D; padding: 2.5% 0 1.5% 0;">Check-Out Date:</h5>
                           <input type="date" class="form-control" id="out-date">
                       </li>
                       <li>
-                        <h5 style="color: #FF250D;">Room Capacity:</h5>
+                        <h5 style="color: #FF250D; padding: 2.5% 0 1.5% 0;">Room Capacity:</h5>
                           <input type="number" class="form-control" id="room-cap" min="1" max="10">
                       </li>
                       <li>
-                        <h5 style="color: #FF250D;">Hotel Chain:</h5>
-                          <input type="text" class="form-control" id="hotel-chain">
+                        <h5 style="color: #FF250D; padding: 2.5% 0 1.5% 0;">Hotel Chain:</h5>
+                          <select class="form-control" id="hotel-sel">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                          </select>
                       </li>
+                      <li>
+                        <h5 style="color: #FF250D; padding: 2.5% 0 1.5% 0;">Rating:</h5>
+                          <input type="number" class="form-control" id="rating" min="1" max="5">
+                      </li>
+                      <li>
+                        <h5 style="color: #FF250D; padding: 2.5% 0 1.5% 0;">Total Number of Rooms:</h5>
+                          <input type="number" class="form-control" id="numOfRooms">
+                      </li>
+                      <li>
+                        <h5 style="color: #FF250D; padding: 2.5% 0 1.5% 0;">Price ($):</h5>
+                          <input type="number" class="form-control" id="price">
+                      </li>
+                      <li><button type="button" class="btn btn-danger" style="margin: 2.5%;">Search</button></li>
                     </ul>
                   </div>
                 </div>
