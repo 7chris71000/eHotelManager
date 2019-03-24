@@ -7,3 +7,247 @@
 	var submit_button = document.GetElementById("submit_booking");
 
 </script>
+
+
+
+    <div class="container">
+      <!-- The Modal -->
+      <div id="myModal" class="modal">
+
+        <!-- Modal content -->
+        <div class="modal-content-custom">
+            <h2 class="site_title">Order Successful</h2>
+            <p>Thank you for your order.<br>Happy Reading!</p>
+            <button class="btn btn-dark">
+                <a href="index.html" class="white">OK</a>
+            </button>
+        </div>
+
+      </div>
+
+    <div class="one-half">
+        <div class="heading_bg">
+            <h2>Booking</h2>
+        </div>
+
+        <div class="rowCartCheckout border-bottom-cart">
+            <div class="col">
+                <b class="img-size-checkout">Hotel</b>
+            </div>
+            <div class="col border-left-cart">
+                <b>Room</b>
+            </div>
+            <div class="col border-left-cart">
+                <b>Price</b>
+            </div>
+            <!--
+            <div class="col border-left-cart">
+                <b>Quantity</b>
+            </div> -->
+            <div class="col border-left-cart">
+                <b >Subtotal</b>
+            </div>
+        </div>
+        <div class="rowCartCheckout">
+            <div class="col data-title">
+                <p id="hotel-name">Marriot</p>
+            </div>
+            <div class="col data-title">
+                <p id="bookTitle">Dungeon</p>
+            </div>
+            <div class="col data">
+                <p id="roomPrice">$99.99</p>
+            </div>
+            <!--
+            <div class="col data">
+                <span id="quantityNum" class="margin-ten-ends">1</span>
+            </div> -->
+            <div class="col data">
+                <p id="subtotalPrice">$99.99</p>
+            </div>
+        </div>
+        <div class="rowCartTotal" id="subtotalRow">
+            <div class="col">
+                <p class="subtotal-title">Subtotal:&nbsp</p>
+            </div>
+            <div class="col text-right tot-money">
+                <p>$99.99</p>
+            </div>
+        </div>
+        <br>
+        <br>
+        <div class="rowCartTotal tax-row">
+            <div class="col line-height-40">
+                <p class="rowCartTitle subtotal-title">Tax:&nbsp</p>
+            </div>
+            <div class="col text-right">
+                <p id="tax" class="checkout-tax-num">$12.99</p>
+            </div>
+        </div>
+        <br>
+        <br>
+        <br>
+        
+        <br>
+        <br>
+        <div class="rowCartTotal ship-tot-checkout" id="totalRow">
+            <div class="col">
+                <p class="subtotal-title">Total:&nbsp</p>
+            </div>
+            <div class="col text-right">
+                <p id="total" class="subtotal-title">$112.99</p>
+            </div>
+        </div>
+
+    </div>
+    <div class="one-fourth last">
+        <h2>General</h2>
+        <label>Given Name <span class="required">*</span>
+            <span id="firstReq" class="checkout-req"> Error in field.</span>
+        </label>
+        <input type="text" class="form-control" name="name" id="first">
+
+        <label>Family Name <span class="required">*</span>
+            <span id="lastReq" class="checkout-req"> Error in field.</span>
+        </label>
+        <input type="text" class="form-control" name="name" id="last">
+
+        <label>Telephone<span class="required">*</span>
+            <span id="telephoneReq" class="checkout-req"> Error in field.</span>
+        </label>
+        <input type="text" class="form-control" name="telephone" id="telephone">
+
+        <label>E-Mail<span class="required">*</span>
+            <span id="emailReq" class="checkout-req"> Error in field.</span>
+        </label>
+        <input type="text" class="form-control" name="email" id="email">
+
+
+        
+
+
+        <!--END form ID contact_form -->
+    </div>
+    <div class="one-fourth last" style="padding-left: 2.5%">
+        <h2>Billing</h2>
+        <label>Name on Card<span class="required">*</span>
+            <span id="cardNameReq" class="checkout-req"> Error in field.</span>
+        </label>
+        <input type="text" class="form-control" name="name" id="cardName">
+
+        <label>Card Number <span class="required">*</span>
+            <span id="cardNumReq" class="checkout-req"> Error in field.</span>
+        </label>
+        <input type="text" class="form-control" name="name" id="cardNum" value="">
+
+        <label title="Card Security Code. 3 digits on back of card.">CSC <span class="required">*</span>
+            <span id="cscReq" class="checkout-req"> Error in field.</span>
+        </label>
+        <input type="text" class="form-control" name="number" id="cscNum">
+        
+    </div>
+
+    <br>
+
+    <button id="submitForm" class="btn btn-dark checkout-submit">Submit</button>
+
+    <!--END form ID contact_form -->
+
+
+
+
+
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <script>
+      var shippingDone = false;
+      $("#submitForm").click(function () {
+          var regex = new RegExp("^[a-zA-Z ]+$");
+          //       $(this).trigger("dblclick");
+          var inputArray = ["#first", "#last", "#address", "#city", "#province", "#postal", "#telephone", "#email", "#cardName", "#cardNum", "#cscNum"];
+          var reqArray = ["#firstReq", "#lastReq", "#addressReq", "#cityReq", "#provinceReq", "#postalReq", "#telephoneReq", "#emailReq", "#cardNameReq", "#cardNumReq", "#cscReq"];
+          for (var i = 0; i < inputArray.length; i++) {
+              var valueEntered1 = $(inputArray[i]).val();
+              $(reqArray[i]).css('visibility', "hidden");
+          }
+          var complete = true;
+          for (var i = 0; i < inputArray.length; i++) {
+              var valueEntered = $(inputArray[i]).val();
+              var newValue = valueEntered.split(' ').join('');
+              if (newValue.localeCompare("") == 0) {
+                  $(reqArray[i]).css('visibility', "visible");
+                  complete = false;
+              }
+          }
+          if (!regex.test($("#first").val())) {
+              $("#firstReq").css('visibility', "visible");
+              complete = false;
+          }
+          if (!regex.test($("#last").val())) {
+              $("#lastReq").css('visibility', "visible");
+              complete = false;
+          }
+          if (!regex.test($("#city").val())) {
+              $("#cityReq").css('visibility', "visible");
+              complete = false;
+          }
+          if (!regex.test($("#province").val())) {
+              $("#provinceReq").css('visibility', "visible");
+              complete = false;
+          }
+          if (!regex.test($("#cardName").val())) {
+              $("#cardNameReq").css('visibility', "visible");
+              complete = false;
+          }
+          if (isNaN($("#cardNum").val()) || ($("#cardNum").val().length != 16)) {
+              $("#cardNumReq").css('visibility', "visible");
+              complete = false;
+          }
+          if (isNaN($("#cscNum").val()) || ($("#cscNum").val().length != 3)) {
+              $("#cscReq").css('visibility', "visible");
+              complete = false;
+          }
+          if ($("#telephone").val().length != 10 || isNaN($("#telephone").val())) {
+              if (!(($("#telephone").val().charAt(0).localeCompare("1") == 0) && $("#telephone").val().length == 11)) {
+                  $("#telephoneReq").css('visibility', "visible");
+                  complete = false;
+              }
+          }
+          if ($("#email").val().indexOf("@") == -1) {
+              $("#emailReq").css('visibility', "visible");
+              complete = false;
+          }
+          $("#shippingSelected").css('visibility', "hidden");
+          if(!shippingDone){
+              $("#shippingSelected").css('visibility', "visible");
+          }
+          if (complete && shippingDone) {
+              $("#myModal").css("display", "block");
+          }
+      });
+      $("#standard").click(function () {
+          shippingDone = true;
+          var newShipping = 9.99;
+          $("#shipping").text("$" + newShipping);
+          var totWshipping = newShipping + 22.59;
+          $("#total").text("$" + totWshipping.toFixed(2));
+      });
+      $("#priority").click(function () {
+          shippingDone = true;
+          var newShipping = 19.99;
+          $("#shipping").text("$" + newShipping);
+          var totWshipping = newShipping + 22.59;
+          $("#total").text("$" + totWshipping.toFixed(2));
+      });
+      $("#free").click(function () {
+          shippingDone = true;
+          var newShipping = 0.00;
+          $("#shipping").text("Free");
+          var totWshipping = newShipping + 22.59;
+          $("#total").text("$" + totWshipping.toFixed(2));
+      });
+    </script>

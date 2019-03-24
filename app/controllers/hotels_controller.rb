@@ -2,6 +2,7 @@ class HotelsController < ApplicationController
 
 	def index
 		@form_data = params
+		print("\n\n\n\n\n\n\n#{@form_data}\n\n\n\n\n\n\n\n\n#{params["chain"]}\n\n\n\n\n\n\n\n\n\n")
 		params["capacity"] != "" ? capacity = params["capacity"] : capacity = "%"
 		params["chain"] != "" ? chain = params["chain"] : chain = "%"
 		params["rating"] != "" ? rating = params["rating"] : rating = "%"
