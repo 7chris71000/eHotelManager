@@ -23,8 +23,8 @@ class RoomsController < ApplicationController
 		# Do logic
 		# params["stay"]["date_start"] Gives start date
 		# params["stay"]["date_end"] Gives end date
-		start = params["stay"]["date_start"]
-		ending = params["stay"]["date_end"]
+		start = params["date_start"]
+		ending = params["date_end"]
 
 		get_all_rooms
 
@@ -59,7 +59,7 @@ class RoomsController < ApplicationController
 				"
 				INSERT INTO customer_rooms
 				VALUES 
-				( #{params[:id]}, 1, '#{start}', '#{ending}');
+				( #{params[:id]}, #{current_user.id}, '#{start}', '#{ending}');
 				"
 			);
 		end

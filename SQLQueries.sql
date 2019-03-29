@@ -26,10 +26,11 @@ CREATE TABLE employees (
 	EmployeeAddress varchar(255),
 	SSNSIN int,
 	HotelID int,
+	UserID int,
 	primary key(EmployeeID),
 	foreign key(HotelID) references hotels
 );
-
+	
 CREATE TABLE rooms (
 	RoomID int,
 	Price numeric(6,2),
@@ -49,6 +50,7 @@ CREATE TABLE customers (
 	CustomerAddress varchar(255),
 	SSNSIN int,
 	DateOfRegistration date,
+	UserID int,
 	primary key(CustomerID)
 );
 
@@ -69,7 +71,7 @@ CREATE TABLE customer_archives (
 	ArchiveID int,
 	CustomerID int,
 	foreign key(ArchiveID) references archive
-	foreign key(CustomerID) references customers
+foreign key(CustomerID) references customers
 );
 
 CREATE TABLE customer_rooms (
@@ -170,10 +172,5 @@ VALUES
 	-- Room 1
 	( 1, 140.00, 2, 1, "Booked", "Sea", 55),
 	( 2, 140.00, 5, 1, "Rented", "Mountain", 35)
-	;
-
-INSERT INTO customers
-VALUES
-	( 1 , 'Christopher', 'Francis', 'address 123', 123456, 2019-03-07)
 	;
 

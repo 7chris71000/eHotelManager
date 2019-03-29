@@ -8,11 +8,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def new
 
     @hotels = ActiveRecord::Base.connection.execute(
-        "
-        SELECT * 
-        FROM hotels
-        ;
-        "
+      "
+      SELECT * 
+      FROM hotels
+      ;
+      "
       );
 
     super
@@ -20,7 +20,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # POST /resource
   def create
-    
+
 
     firstName = params["fname"]
     lastName = params["lname"]
@@ -30,14 +30,18 @@ class Users::RegistrationsController < Devise::RegistrationsController
     hotelID = params["selHotelID"]
     customer = params["sel2"]
 
+    userMaxID = ActiveRecord::Base.connection.execute(
+      "
+      SELECT MAX( id ) FROM users;
+      "
+      );
+
+    if (!userMaxID[0][0].present?)
+      userMaxID = 0
+    end
+
     print("\n\n\n
-      \n#{firstName}
-      \n#{lastName}
-      \n#{address}
-      \n#{ssn}
-      \n#{date}
-      \n#{hotelID}
-      \n#{customer}
+      \n#{userMaxID}
       \n\n\n\n")
 
     # get ID to put into customers or employees
@@ -48,7 +52,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
         "
         SELECT MAX( CustomerID ) FROM customers;
         "
-      );
+        );
 
       if (!maxId[0][0].present?)
         maxId = 0
@@ -58,25 +62,25 @@ class Users::RegistrationsController < Devise::RegistrationsController
         "
         INSERT INTO customers
         VALUES 
-        ( #{maxId[0][0] + 1} , '#{firstName}', '#{lastName}', '#{address}', #{ssn}, #{date})
+        ( #{maxId[0][0] + 1} , '#{firstName}', '#{lastName}', '#{address}', #{ssn}, #{date}, #{userMaxID[0][0] + 1})
         ;
         "
-      );
+        );
     else 
 
       maxId = ActiveRecord::Base.connection.execute(
         "
         SELECT MAX( EmployeeID ) FROM employees;
         "
-      );
+        );
 
-      maxIdRoom = ActiveRecord::Base.connection.execute(
-        "
-        SELECT MAX( RoomID ) FROM rooms;
-        "
-      );
+      # maxIdRoom = ActiveRecord::Base.connection.execute(
+      #   "
+      #   SELECT MAX( RoomID ) FROM rooms;
+      #   "
+      # );
 
-      print("\n\n\n\n\n\n\n\n\nMax room id #{maxIdRoom}\n\n\n\n\n\n")
+      # print("\n\n\n\n\n\n\n\n\nMax room id #{maxIdRoom}\n\n\n\n\n\n")
 
       if (!maxId[0][0].present?)
         maxId = 0
@@ -86,10 +90,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
         "
         INSERT INTO employees
         VALUES 
-        ( #{maxId[0][0] + 1}, '#{firstName}', '#{lastName}', '#{address}', #{ssn}, #{hotelID})
+        ( #{maxId[0][0] + 1}, '#{firstName}', '#{lastName}', '#{address}', #{ssn}, #{hotelID}, #{userMaxID[0][0] + 1})
         ;
         "
-      );
+        );
     end
 
 
@@ -126,7 +130,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # If you have extra params to permit, append them to the sanitizer.
   def configure_sign_up_params
     # devise_parameter_sanitizer.permit(:sign_up, keys: [:attribute])
-    devise_parameter_sanitizer.permit(:sign_up) { |u| u.permit(:email, :name, :password, :password_confirmation, :customer) }
+    devise_parameter_sanitizer.permit(:sign_up) { |u| u.permit(:email, :name, :password, :password_confirmation, :sel2) }
   end
 
   # If you have extra params to permit, append them to the sanitizer.
