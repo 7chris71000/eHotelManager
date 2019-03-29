@@ -6,6 +6,16 @@ class PagesController < ApplicationController
 	
 	def filter
 		@title = "Filter"
+
+
+		@hotel_chains = ActiveRecord::Base.connection.execute(
+        "
+        SELECT * 
+        FROM hotel_chains
+        ;
+        "
+      );
+
 	end
 
 end

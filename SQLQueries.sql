@@ -26,10 +26,11 @@ CREATE TABLE employees (
 	EmployeeAddress varchar(255),
 	SSNSIN int,
 	HotelID int,
+	UserID int,
 	primary key(EmployeeID),
 	foreign key(HotelID) references hotels
 );
-
+	
 CREATE TABLE rooms (
 	RoomID int,
 	Price numeric(6,2),
@@ -49,6 +50,7 @@ CREATE TABLE customers (
 	CustomerAddress varchar(255),
 	SSNSIN int,
 	DateOfRegistration date,
+	UserID int,
 	primary key(CustomerID)
 );
 
@@ -69,7 +71,7 @@ CREATE TABLE customer_archives (
 	ArchiveID int,
 	CustomerID int,
 	foreign key(ArchiveID) references archive
-	foreign key(CustomerID) references customers
+foreign key(CustomerID) references customers
 );
 
 CREATE TABLE customer_rooms (
@@ -119,50 +121,50 @@ VALUES
 INSERT INTO hotels
 VALUES 
 	-- Hotel 1
-	( 11, "Address 123", "City1", "email1@email.ca", 15, 5, 1),
-	( 12, "Address 123", "City2", "email1@email.ca", 23, 5, 1),
-	( 13, "Address 123", "City3", "email1@email.ca", 32, 4, 1),
-	( 14, "Address 123", "City4", "email1@email.ca", 47, 3, 1),
-	( 15, "Address 123", "City5", "email1@email.ca", 99, 3, 1),
-	( 16, "Address 123", "City6", "email1@email.ca", 12, 2, 1),
-	( 17, "Address 123", "City7", "email1@email.ca", 76, 4, 1),
-	( 18, "Address 123", "City8", "email1@email.ca", 58, 4, 1),
+	( 11, "123 Address St", "City1", "email1@email.ca", 15, 5, 1),
+	( 12, "123 Address St", "City2", "email1@email.ca", 23, 5, 1),
+	( 13, "123 Address St", "City3", "email1@email.ca", 32, 4, 1),
+	( 14, "123 Address St", "City4", "email1@email.ca", 47, 3, 1),
+	( 15, "123 Address St", "City5", "email1@email.ca", 99, 3, 1),
+	( 16, "123 Address St", "City6", "email1@email.ca", 12, 2, 1),
+	( 17, "123 Address St", "City7", "email1@email.ca", 76, 4, 1),
+	( 18, "123 Address St", "City8", "email1@email.ca", 58, 4, 1),
 	-- Hotel 2
-	( 21, "Address 223", "City1", "email2@email.ca", 15, 2, 2),
-	( 22, "Address 223", "City2", "email2@email.ca", 23, 1, 2),
-	( 23, "Address 223", "City3", "email2@email.ca", 32, 1, 2),
-	( 24, "Address 223", "City4", "email2@email.ca", 47, 2, 2),
-	( 25, "Address 223", "City5", "email2@email.ca", 99, 1, 2),
-	( 26, "Address 223", "City6", "email2@email.ca", 12, 2, 2),
-	( 27, "Address 223", "City7", "email2@email.ca", 76, 3, 2),
-	( 28, "Address 223", "City8", "email2@email.ca", 58, 1, 2),
+	( 21, "223 Address St", "City1", "email2@email.ca", 15, 2, 2),
+	( 22, "223 Address St", "City2", "email2@email.ca", 23, 1, 2),
+	( 23, "223 Address St", "City3", "email2@email.ca", 32, 1, 2),
+	( 24, "223 Address St", "City4", "email2@email.ca", 47, 2, 2),
+	( 25, "223 Address St", "City5", "email2@email.ca", 99, 1, 2),
+	( 26, "223 Address St", "City6", "email2@email.ca", 12, 2, 2),
+	( 27, "223 Address St", "City7", "email2@email.ca", 76, 3, 2),
+	( 28, "223 Address St", "City8", "email2@email.ca", 58, 1, 2),
 	-- Hotel 3
-	( 31, "Address 323", "City1", "email3@email.ca", 15, 5, 3),
-	( 32, "Address 323", "City2", "email3@email.ca", 23, 4, 3),
-	( 33, "Address 323", "City3", "email3@email.ca", 32, 3, 3),
-	( 34, "Address 323", "City4", "email3@email.ca", 47, 4, 3),
-	( 35, "Address 323", "City5", "email3@email.ca", 99, 3, 3),
-	( 36, "Address 323", "City6", "email3@email.ca", 12, 4, 3),
-	( 37, "Address 323", "City7", "email3@email.ca", 76, 5, 3),
-	( 38, "Address 323", "City8", "email3@email.ca", 58, 3, 3),
+	( 31, "323 Address St", "City1", "email3@email.ca", 15, 5, 3),
+	( 32, "323 Address St", "City2", "email3@email.ca", 23, 4, 3),
+	( 33, "323 Address St", "City3", "email3@email.ca", 32, 3, 3),
+	( 34, "323 Address St", "City4", "email3@email.ca", 47, 4, 3),
+	( 35, "323 Address St", "City5", "email3@email.ca", 99, 3, 3),
+	( 36, "323 Address St", "City6", "email3@email.ca", 12, 4, 3),
+	( 37, "323 Address St", "City7", "email3@email.ca", 76, 5, 3),
+	( 38, "323 Address St", "City8", "email3@email.ca", 58, 3, 3),
 	-- Hotel 4
-	( 41, "Address 423", "City1", "email4@email.ca", 15, 2, 4),
-	( 42, "Address 423", "City2", "email4@email.ca", 23, 2, 4),
-	( 43, "Address 423", "City3", "email4@email.ca", 32, 3, 4),
-	( 44, "Address 423", "City4", "email4@email.ca", 47, 2, 4),
-	( 45, "Address 423", "City5", "email4@email.ca", 99, 4, 4),
-	( 46, "Address 423", "City6", "email4@email.ca", 12, 2, 4),
-	( 47, "Address 423", "City7", "email4@email.ca", 76, 3, 4),
-	( 48, "Address 423", "City8", "email4@email.ca", 58, 2, 4),
+	( 41, "423 Address St", "City1", "email4@email.ca", 15, 2, 4),
+	( 42, "423 Address St", "City2", "email4@email.ca", 23, 2, 4),
+	( 43, "423 Address St", "City3", "email4@email.ca", 32, 3, 4),
+	( 44, "423 Address St", "City4", "email4@email.ca", 47, 2, 4),
+	( 45, "423 Address St", "City5", "email4@email.ca", 99, 4, 4),
+	( 46, "423 Address St", "City6", "email4@email.ca", 12, 2, 4),
+	( 47, "423 Address St", "City7", "email4@email.ca", 76, 3, 4),
+	( 48, "423 Address St", "City8", "email4@email.ca", 58, 2, 4),
 	-- Hotel 5	
-	( 51, "Address 523", "City1", "email5@email.ca", 10, 5, 5),
-	( 52, "Address 523", "City2", "email5@email.ca", 14, 5, 5),
-	( 53, "Address 523", "City3", "email5@email.ca", 23, 5, 5),
-	( 54, "Address 523", "City4", "email5@email.ca", 13, 5, 5),
-	( 55, "Address 523", "City5", "email5@email.ca", 16, 5, 5),
-	( 56, "Address 523", "City6", "email5@email.ca", 10, 4, 5),
-	( 57, "Address 523", "City7", "email5@email.ca", 19, 4, 5),
-	( 58, "Address 523", "City8", "email5@email.ca", 20, 5, 5)
+	( 51, "523 Address St", "City1", "email5@email.ca", 10, 5, 5),
+	( 52, "523 Address St", "City2", "email5@email.ca", 14, 5, 5),
+	( 53, "523 Address St", "City3", "email5@email.ca", 23, 5, 5),
+	( 54, "523 Address St", "City4", "email5@email.ca", 13, 5, 5),
+	( 55, "523 Address St", "City5", "email5@email.ca", 16, 5, 5),
+	( 56, "523 Address St", "City6", "email5@email.ca", 10, 4, 5),
+	( 57, "523 Address St", "City7", "email5@email.ca", 19, 4, 5),
+	( 58, "523 Address St", "City8", "email5@email.ca", 20, 5, 5)
 	;
 
 INSERT INTO rooms
@@ -170,10 +172,5 @@ VALUES
 	-- Room 1
 	( 1, 140.00, 2, 1, "Booked", "Sea", 55),
 	( 2, 140.00, 5, 1, "Rented", "Mountain", 35)
-	;
-
-INSERT INTO customers
-VALUES
-	( 1 , 'Christopher', 'Francis', 'address 123', 123456, 2019-03-07)
 	;
 
