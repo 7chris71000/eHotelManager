@@ -28,7 +28,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     ssn = params["ssn"]
     date = Time.now.strftime("%Y-%m-%d")
     hotelID = params["selHotelID"]
-    customer = params["sel2"]
+    type = params["user"]["user_type"]
 
     userMaxID = ActiveRecord::Base.connection.execute(
       "
@@ -46,7 +46,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
     # get ID to put into customers or employees
     # use SQL to update DB
-    if( customer == "customer" )
+    if( type == "customer" )
 
       maxId = ActiveRecord::Base.connection.execute(
         "
@@ -130,7 +130,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # If you have extra params to permit, append them to the sanitizer.
   def configure_sign_up_params
     # devise_parameter_sanitizer.permit(:sign_up, keys: [:attribute])
-    devise_parameter_sanitizer.permit(:sign_up) { |u| u.permit(:email, :name, :password, :password_confirmation, :sel2) }
+    devise_parameter_sanitizer.permit(:sign_up) { |u| u.permit(:email, :name, :password, :password_confirmation, :user_type) }
   end
 
   # If you have extra params to permit, append them to the sanitizer.

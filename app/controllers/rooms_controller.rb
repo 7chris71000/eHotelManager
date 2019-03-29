@@ -41,11 +41,19 @@ class RoomsController < ApplicationController
 			if (n.between?(a,b)) or (m.between?(a,b)) or (n < a and b < m) or (n >= m)
 				noVacancy = true
 			end
-		
+
 			break if noVacancy
 		end
 
-		if noVacancy
+		isCustomer = (current_user.user_type == 'customer')
+		if isCustomer
+			# user signed in is customer
+			get_user_customer
+		else
+			get_user_employee
+		end
+
+			if noVacancy
 			# Do not add to database and send back to update form 
 			print("\nError in adding room due to times requested.\n\n")
 			redirect_to edit_room_path
@@ -59,26 +67,31 @@ class RoomsController < ApplicationController
 				"
 				INSERT INTO customer_rooms
 				VALUES 
-				( #{params[:id]}, #{current_user.id}, '#{start}', '#{ending}');
+				( #{params[:id]}, #{@online['CustomerID']}, '#{start}', '#{ending}');
 				"
-			);
+				);
 		end
 
+		print("\n\n\nTEST\n\n\n")
 
-		render 'edit'		
+		render 'success'		
 	end
 
 	def destroy
 
 		ActiveRecord::Base.connection.execute(
-				"
-				DELETE 
-				FROM rooms
-				WHERE RoomID = #{params[:id]}
-				;
-				"
+			"
+			DELETE 
+			FROM rooms
+			WHERE RoomID = #{params[:id]}
+			;
+			"
 			);
 
+	end
+
+	def success
+		@title = "Success"
 	end
 
 	private
@@ -97,7 +110,7 @@ class RoomsController < ApplicationController
 				WHERE RoomID = #{roomId}
 				;
 				"
-			);
+				);
 
 			@room = room.first()
 
@@ -110,7 +123,38 @@ class RoomsController < ApplicationController
 				FROM customer_rooms
 				;
 				"
-			);
+				);
+		end
+
+		def get_user_customer
+
+			online = ActiveRecord::Base.connection.execute(
+				"
+				SELECT * 
+				FROM customers
+				WHERE UserID = #{current_user.id}
+				;
+				"
+				);
+
+			@online = online.first()
+		end
+
+		def get_user_employee
+
+
+			customerSSN = params["customerSSN"]
+
+			online = ActiveRecord::Base.connection.execute(
+				"
+				SELECT * 
+				FROM customers
+				WHERE SSNSIN = #{customerSSN}
+				;
+				"
+				);
+
+			@online = online.first()
 		end
 
 end

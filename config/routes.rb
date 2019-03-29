@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 
   get "/filter" => "pages#filter"
   resources :rooms
+  get "/success" => "rooms#success"
   resources :hotels
 
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_29_163430) do
+ActiveRecord::Schema.define(version: 2019_03_29_172752) do
 
   create_table "amenities", id: false, force: :cascade do |t|
     t.integer "RoomID"
@@ -102,7 +102,7 @@ ActiveRecord::Schema.define(version: 2019_03_29_163430) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.string "type"
+    t.string "user_type"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
