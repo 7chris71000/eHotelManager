@@ -71,7 +71,7 @@ CREATE TABLE customer_archives (
 	ArchiveID int,
 	CustomerID int,
 	foreign key(ArchiveID) references archive
-foreign key(CustomerID) references customers
+	foreign key(CustomerID) references customers
 );
 
 CREATE TABLE customer_rooms (
@@ -174,3 +174,47 @@ VALUES
 	( 2, 140.00, 5, 1, "Rented", "Mountain", 35)
 	;
 
+CREATE
+  TRIGGER deconstruct_rooms BEFORE DELETE
+  ON hotels
+  FOR EACH ROW BEGIN
+      DELETE FROM rooms
+          WHERE HotelID = DELETEDROW.HotelID;
+  END;
+END;
+
+CREATE
+  TRIGGER deconstruct_hotel BEFORE DELETE
+  ON hotels
+  FOR EACH ROW BEGIN
+      DELETE FROM customer_rooms JOIN rooms ON customer_room.roomID=rooms.roomID
+          WHERE HotelID = DELETEDROW.HotelID;
+  END;
+END;
+
+CREATE
+    TRIGGER deconstruct_hotel_chain BEFORE DELETE
+    ON hotel_chains
+    FOR EACH ROW BEGIN
+        DELETE FROM hotels
+            WHERE ChainID = DELETEDROW.ChainID;
+    END;
+END;
+
+CREATE
+    TRIGGER deconstruct_employees BEFORE DELETE
+    ON hotels
+    FOR EACH ROW BEGIN
+        DELETE FROM employees
+            WHERE HotelID = DELETEDROW.HotelID;
+    END;
+END;
+
+CREATE
+    TRIGGER deconstruct_room_rooms BEFORE DELETE
+    ON rooms
+    FOR EACH ROW BEGIN
+        DELETE FROM customer_rooms
+            WHERE roomlID = DELETEDROW.roomID;
+    END;
+END;
