@@ -1,33 +1,32 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>EHotel</title>
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+<head>
+  <title>EHotel | <%= @title || "" %> </title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <%= favicon_link_tag asset_path('icon.png') %>
-  </head>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  <%= favicon_link_tag asset_path('icon.png') %>
+  <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
 
-  <body>
 
-    <%= link_to "Home", root_path %>
-    <%= link_to "Filter", filter_path %>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link href='http://fonts.googleapis.com/css?family=Lobster+Two' rel='stylesheet' type='text/css'>
 
-    <% if user_signed_in? %>
-      <div>
-        <!-- this can be the users name -->
-        <%= link_to "Sign Out", destroy_user_session_path, data: {method: :delete} %>
-      </div>
-      <% else %>
-      <%= link_to "Sign In", new_user_session_path, :class=>"header-float-right" %>
-      <% end %>
+</head>
 
-    <%= yield %>
+<body>
 
+  <%= render "layouts/header" %>
+  <div class="container">
+    <%= yield %>  
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
+  </div>
 
-  </body>
+
+
+</body>
 </html>

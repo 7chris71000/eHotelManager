@@ -1,42 +1,49 @@
-<p>
-	Hotels Home
-</p>
-<p>
-	<%= @hotels[0] %>
-</p>
+
+<h2>Results:
+  <%= link_to 'Filter', filter_path, class: "btn btn-danger" %>
+</h2>
 
 
-<table style="border: 1px solid black; border-collapse: collapse; text-align: center">
-  <tr>
-    <th>Room Number</th>
-    <th>Address</th>
-    <th>City</th>
-    <th>Contact Email</th>
-    <th>Number of Rooms</th>
-    <th>Star Rating</th>
-    <th>Chain</th>
-    <th>Price</th>
-    <th>Status</th>
-    <th>View</th>
-    <th>Capacity</th>
-  </tr>
-  <% @hotels.each do |hotel| %>
-  <tr>
-  	<td><%= link_to hotel["RoomID"], room_path(hotel["RoomID"]) %></td>
-    <td><%= hotel["Address"] %></td>
-  	<td><%= hotel["City"] %></td>
-  	<td><%= hotel["ContactEmail"] %></td>
-  	<td><%= hotel["NoOfRooms"] %></td>
-  	<td><%= hotel["Category"] %></td>
-  	<td><%= hotel["Name"] %></td>
-  	<td><%= hotel["Price"] %></td>
-  	<td><%= hotel["Status"] %></td>
-  	<td><%= hotel["View"] %></td>
-  	<td><%= hotel["Capacity"] %></td>
-  </tr>
-  <% end %>
+<table class="table" style="margin-top: 2.55%; text-align: center">
+  <thead class="thead-dark">
+    <tr>
+      <th>Room Number</th>
+      <th>Address</th>
+      <th>City</th>
+      <th>Contact Email</th>
+      <th>Number of Rooms</th>
+      <th>Star Rating</th>
+      <th>Chain Price</th>
+      <th>Status</th>
+      <th>View</th>
+      <th>Capacity</th>
+      <th>Book Room</th>
+      <% if current_user.user_type == 'employee' %>
+        <th>Update Room</th>
+        <th>Delete Room</th> 
+      <% end %>  
+    </tr>
+  </thead>
+  <tbody>
+    <% @rooms.each do |room| %>
+      <tr>
+
+        <td><%= link_to room["RoomID"], room_path(room["RoomID"]) %></td>
+        <td><%= room["roomAddress"] %></td>
+        <td><%= room["City"] %></td>
+        <td><%= room["ContactEmail"] %></td>
+        <td><%= room["NoOfRooms"] %></td>
+        <td><%= room["Category"] %></td>
+        <td><%= room["Price"] %></td>
+        <td><%= room["Status"] %></td>
+        <td><%= room["View"] %></td>
+        <td><%= room["Capacity"] %></td>
+        <td><%= link_to 'Book', edit_room_path(room["RoomID"]), class: "btn btn-success" %></td>
+        <% if current_user.user_type == 'employee' %>
+        <td><%= link_to 'Update', edit_room_path(room["RoomID"]), class: "btn btn-primary" %></td>
+        <td><%= link_to "Delete", "/rooms/#{room["RoomID"]}", {method: :delete, data: {confirm: "Are you sure you want to delete this room?"}, class: "btn btn-danger" } %></td>
+      <% end %>
+    </tr>
+    <% end %>
+  </tbody>
 </table>
-<br>
-<br>
-<br>
-<%= @form_data %>

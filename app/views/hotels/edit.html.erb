@@ -1,0 +1,33 @@
+<div class="row">
+  <div class="col-sm"></div>
+  <div class="col-sm-6">
+    <div class="card">
+      <div class="card-body">
+        <%= form_tag("/hotels/#{params[:id]}", method: "put") %>
+        <h4 class="card-title" style="color: #FF250D;">Update Hotel:</h4>
+        <!--<h4 class="card-title" style="color: #FF250D;">Login</h4>-->
+        <ul> 
+          <li><label>Address<span class="required">*</span></label>
+          <input type="text" class="form-control" name="faddress" id="address"></li>
+
+          <li><label>City<span class="required">*</span></label>
+          <input type="text" class="form-control" name="fcity" id="city"></li>
+
+          <li><label>Contact Email<span class="required">*</span></label>
+          <input type="email" class="form-control" name="femail" id="email"></li>
+
+          <li><label>Number Of Rooms<span class="required">*</span></label>
+          <input type="int" class="form-control" name="fnumrooms" id="numofrooms">
+
+          <li><label>Rating<span class="required">*</span></label>
+          <input type="int" class="form-control" name="frating" id="rating" min="1" max="5">
+
+          <li><button type="button" class="btn btn-success" style="margin-top: 2.5%; margin-right: 2.5%">Confirm</button><button type="button" class="btn btn-danger" style="margin-top: 2.5%; margin-right: 2.5%">Cancel</button></li>
+
+        </ul>
+        <%end%>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm"></div>
+</div>

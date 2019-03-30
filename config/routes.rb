@@ -4,10 +4,13 @@ Rails.application.routes.draw do
   resources :users
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
-  root to: "pages#index"
+  root :to => redirect("/users/sign_in")
 
   get "/filter" => "pages#filter"
   resources :rooms
+  get "/success" => "rooms#success"
   resources :hotels
+  get "/list" => "hotels#list"
+  resources :hotel_chains
 
 end

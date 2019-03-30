@@ -1,0 +1,29 @@
+
+<h2>Results:
+  <%= link_to 'Filter', filter_path, class: "btn btn-danger" %>
+</h2>
+
+
+<table class="table" style="margin-top: 2.55%; text-align: center">
+  <thead class="thead-dark">
+    <tr>
+      <th>Chain Name</th>
+      <th>Address</th>
+      <th>Number of Hotels</th>
+      <th>Update</th>
+      <th>Delete</th> 
+    </tr>
+  </thead>
+  <tbody>
+    <% @chains.each do |chain| %>
+      <tr>
+
+        <td><%= link_to chain["ChainName"], "/list", class: "btn btn-success" %></td>
+        <td><%= chain["OfficeAddress"] %></td>
+        <td><%= chain["NoOfHotels"] %></td>
+        <td><%= link_to 'Update', edit_hotel_chain_path(chain["ChainID"]), class: "btn btn-primary" %></td>
+        <td><%= link_to "Delete", "/hotel_chains/#{chain["ChainID"]}", {method: :delete, data: {confirm: "Are you sure you want to delete this hotel chain?"}, class: "btn btn-danger" } %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

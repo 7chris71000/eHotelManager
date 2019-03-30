@@ -1,0 +1,13 @@
+<div class="header">
+  <!-- Logo/Title -->
+  
+  
+  <% if user_signed_in? %>
+  <!-- this can be the users name -->
+  <%= link_to "Filter | ", filter_path, :class=>"header-link"%>
+    <%= link_to "CJ's EBookings", filter_path, :class=>"site_title"%>
+    <%= link_to " | Sign Out", destroy_user_session_path, :class=>"header-link", data: {method: :delete} %>
+  <% else %>
+    <%= link_to "CJ's EBookings", root_path, :class=>"site_title"%>
+  <% end %>
+</div>

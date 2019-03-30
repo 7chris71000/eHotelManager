@@ -12,6 +12,7 @@ class RoomsController < ApplicationController
 	end
 
 	def edit
+		@title = "Book Room"
 		set_room
 	end
 
@@ -22,8 +23,8 @@ class RoomsController < ApplicationController
 		# Do logic
 		# params["stay"]["date_start"] Gives start date
 		# params["stay"]["date_end"] Gives end date
-		start = params["stay"]["date_start"]
-		ending = params["stay"]["date_end"]
+		start = params["date_start"]
+		ending = params["date_end"]
 
 		get_all_rooms
 
@@ -40,11 +41,18 @@ class RoomsController < ApplicationController
 			if (n.between?(a,b)) or (m.between?(a,b)) or (n < a and b < m) or (n >= m)
 				noVacancy = true
 			end
-		
+
 			break if noVacancy
 		end
 
-		if noVacancy
+		if current_user.user_type == 'customer'
+			# user signed in is customer
+			get_user_customer
+		else
+			get_user_employee
+		end
+
+			if noVacancy
 			# Do not add to database and send back to update form 
 			print("\nError in adding room due to times requested.\n\n")
 			redirect_to edit_room_path
@@ -58,16 +66,40 @@ class RoomsController < ApplicationController
 				"
 				INSERT INTO customer_rooms
 				VALUES 
-				( #{params[:id]}, 1, '#{start}', '#{ending}');
+				( #{params[:id]}, #{@online['CustomerID']}, '#{start}', '#{ending}');
 				"
-			);
+				);
 		end
 
+		print("\n\n\nTEST\n\n\n")
 
-		render 'edit'		
+		render 'success'		
 	end
 
 	def destroy
+
+		ActiveRecord::Base.connection.execute(
+			"
+			DELETE 
+			FROM customer_rooms
+			WHERE RoomID = #{params[:id]}
+			;
+			"
+			);
+
+		ActiveRecord::Base.connection.execute(
+			"
+			DELETE 
+			FROM rooms
+			WHERE RoomID = #{params[:id]}
+			;
+			"
+			);
+
+	end
+
+	def success
+		@title = "Success"
 	end
 
 	private
@@ -86,7 +118,7 @@ class RoomsController < ApplicationController
 				WHERE RoomID = #{roomId}
 				;
 				"
-			);
+				);
 
 			@room = room.first()
 
@@ -99,7 +131,37 @@ class RoomsController < ApplicationController
 				FROM customer_rooms
 				;
 				"
-			);
+				);
+		end
+
+		def get_user_customer
+
+			online = ActiveRecord::Base.connection.execute(
+				"
+				SELECT * 
+				FROM customers
+				WHERE UserID = #{current_user.id}
+				;
+				"
+				);
+
+			@online = online.first()
+		end
+
+		def get_user_employee
+
+			customerSSN = params["customerSSN"]
+
+			online = ActiveRecord::Base.connection.execute(
+				"
+				SELECT * 
+				FROM customers
+				WHERE SSNSIN = #{customerSSN}
+				;
+				"
+				);
+
+			@online = online.first()
 		end
 
 end

@@ -1,9 +1,46 @@
-<%= render 'form' %>
+<div class="row">
+  <div class="col-sm"></div>
+  <div class="col-sm-6">
+    <div class="card">
+      <div class="card-body">
+        <%= form_tag("/rooms/#{params[:id]}", method: "put") %>
+        <h4 class="card-title" style="color: #FF250D;">Update Room:</h4>
+        <!--<h4 class="card-title" style="color: #FF250D;">Login</h4>-->
+        <ul> 
+          <li><label>Price<span class="required">*</span></label>
+          <input type="float" class="form-control" name="fprice" id="price"></li>
 
-<script type="text/javascript">
-	
-	var startDate = document.GetElementById("stay_date_start");
-	var endDate = document.GetElementById("stay_date_start");
-	var submit_button = document.GetElementById("submit_booking");
+          <li><label>Capacity<span class="required">*</span></label>
+          <input type="int" class="form-control" name="fcapacity" id="capacity"></li>
 
-</script>
+          <li><label>Price<span class="required">*</span></label>
+          <input type="float" class="form-control" name="fprice" id="price"></li>
+
+          <li><label>Extendable<span class="required">*</span></label>
+          <select class="form-control" id="sel2" id="extendable" name="fextendable">
+            <option>True</option>
+            <option>False</option>
+          </select></li>
+
+          <li><label>Status<span class="required">*</span></label>
+          <select class="form-control" id="sel2" id="status" name="fstatus">
+            <option>Available</option>
+            <option>Booked</option>
+            <option>Rented</option>
+          </select></li>
+
+          <li><label>View<span class="required">*</span></label>
+          <select class="form-control" id="sel2" id="view" name="fview">
+            <option>Sea</option>
+            <option>Mountain</option>
+          </select></li>
+
+          <li><button type="button" class="btn btn-success" style="margin-top: 2.5%; margin-right: 2.5%">Confirm</button><button type="button" class="btn btn-danger" style="margin-top: 2.5%; margin-right: 2.5%">Cancel</button></li>
+
+        </ul>
+        <%end%>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm"></div>
+</div>
