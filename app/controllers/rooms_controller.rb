@@ -45,8 +45,7 @@ class RoomsController < ApplicationController
 			break if noVacancy
 		end
 
-		isCustomer = (current_user.user_type == 'customer')
-		if isCustomer
+		if current_user.user_type == 'customer'
 			# user signed in is customer
 			get_user_customer
 		else
@@ -78,6 +77,15 @@ class RoomsController < ApplicationController
 	end
 
 	def destroy
+
+		ActiveRecord::Base.connection.execute(
+			"
+			DELETE 
+			FROM customer_rooms
+			WHERE RoomID = #{params[:id]}
+			;
+			"
+			);
 
 		ActiveRecord::Base.connection.execute(
 			"
@@ -141,7 +149,6 @@ class RoomsController < ApplicationController
 		end
 
 		def get_user_employee
-
 
 			customerSSN = params["customerSSN"]
 
