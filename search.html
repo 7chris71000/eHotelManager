@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+  <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="icon" type="image/png" href="icon.png">
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="CSS/login.css">
+        <link rel="stylesheet" type="text/css" media="screen" href="bootstrap-4.1.1/bootstrap-4.1.1/dist/css/bootstrap.css">
+        <link rel="stylesheet" type="text/css" media="screen" href="CSS/style.css">
+        <link rel="stylesheet" type="text/css" media="screen" href="CSS/typography.css">
+        <link rel="stylesheet" type="text/css" media="screen" href="CSS/headerFooter.css">
+        <link rel="stylesheet" type="text/css" media="screen" href="CSS/buttons.css">
+        <link rel="stylesheet" type="text/css" media="screen" href="CSS/modal.css">
+        <link rel="stylesheet" type="text/css" media="screen" href="CSS/checkoutForm.css">
+        <link href='http://fonts.googleapis.com/css?family=Lobster+Two' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.0-RC3/css/bootstrap-datepicker.css">
+        <link rel="stylesheet" type="text/css" media="screen" href="fontawesome-free-5.1.0-web/css/all.css">
+        <title>Search</title>
+    </head>
+    <body>
+
+        <div class="header">
+            <!-- Logo/Title -->
+            <div class="site_title">
+                <a href="index.html" title="Home"><i class="fas fa-home logo-icons"></i></a>
+                <a href="category.html" title="Categories"><i class="fas fa-sitemap logo-icons"></i></a>
+                <a href="index.html" class="logo-center">
+                    CJ's EBizness
+                </a>
+                <a href="search.html" title="Search"><i class="fas fa-search logo-icons"></i></a>
+                <a href="cart.html" title="Cart"><i class="fas fa-shopping-cart logo-icons"></i></a>
+            </div>
+        </div>
+        <!-- END header -->
+
+        <div class="container">
+
+            <div class="row">
+              <div class="col-sm"></div>
+              <div id="left" class="col-sm-6">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title" style="color: #FF250D;">Search Filter</h4>
+                    <ul id="search"> 
+                      <li>
+                        <h5 style="color: #FF250D; padding: 2.5% 0 1.5% 0;">Check-In Date:</h5>
+                            <input type="date" class="form-control" id="in-date">
+                      </li>
+                      <li>
+                        <h5 style="color: #FF250D; padding: 2.5% 0 1.5% 0;">Check-Out Date:</h5>
+                          <input type="date" class="form-control" id="out-date">
+                      </li>
+                      <li>
+                        <h5 style="color: #FF250D; padding: 2.5% 0 1.5% 0;">Room Capacity:</h5>
+                          <input type="number" class="form-control" id="room-cap" min="1" max="10">
+                      </li>
+                      <li>
+                        <h5 style="color: #FF250D; padding: 2.5% 0 1.5% 0;">Hotel Chain:</h5>
+                          <select class="form-control" id="hotel-sel">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                          </select>
+                      </li>
+                      <li>
+                        <h5 style="color: #FF250D; padding: 2.5% 0 1.5% 0;">Rating:</h5>
+                          <input type="number" class="form-control" id="rating" min="1" max="5">
+                      </li>
+                      <li>
+                        <h5 style="color: #FF250D; padding: 2.5% 0 1.5% 0;">Total Number of Rooms:</h5>
+                          <input type="number" class="form-control" id="numOfRooms">
+                      </li>
+                      <li>
+                        <h5 style="color: #FF250D; padding: 2.5% 0 1.5% 0;">Price ($):</h5>
+                          <input type="number" class="form-control" id="price">
+                      </li>
+                      <li><button type="button" class="btn btn-danger" style="margin: 2.5%;">Search</button></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm"></div>
+            </div>
+
+        </div>
+        
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+    
+    </body>
+</html> 

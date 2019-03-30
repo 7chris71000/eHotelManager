@@ -79,6 +79,18 @@ class HotelsController < ApplicationController
 	def destroy
 	end
 
+	def list
+		print("\n\n\n\n\n\n#{params[:id]}\n\n\n\n\n\n\n\n")
+		@hotels = ActiveRecord::Base.connection.execute(
+				"
+				SELECT * 
+				FROM hotels
+				ORDER BY HotelID
+				;
+				"
+				);
+	end
+
 	private
 
 		def get_all_rooms

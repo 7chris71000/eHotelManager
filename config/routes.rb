@@ -10,5 +10,7 @@ Rails.application.routes.draw do
   resources :rooms
   get "/success" => "rooms#success"
   resources :hotels
+  get "/list" => "hotels#list"
+  resources :hotel_chains
 
 end

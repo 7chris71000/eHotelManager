@@ -1,227 +1,46 @@
-<%#= form_tag("/rooms/#{params[:id]}", method: "put") do %>
-<!-- checkin date must not be before checkout -->
-<%#= label_tag :date_start, "Checkin Date" %>
-<%#= date_field :stay, :date_start %>
+<div class="row">
+  <div class="col-sm"></div>
+  <div class="col-sm-6">
+    <div class="card">
+      <div class="card-body">
+        <%= form_tag("/rooms/#{params[:id]}", method: "put") %>
+        <h4 class="card-title" style="color: #FF250D;">Update Room:</h4>
+        <!--<h4 class="card-title" style="color: #FF250D;">Login</h4>-->
+        <ul> 
+          <li><label>Price<span class="required">*</span></label>
+          <input type="float" class="form-control" name="fprice" id="price"></li>
 
-<%#= label_tag :date_end, "Checkout Date" %>
-<%#= date_field :stay, :date_end %>
+          <li><label>Capacity<span class="required">*</span></label>
+          <input type="int" class="form-control" name="fcapacity" id="capacity"></li>
 
-<%#= hidden_field_tag :id, params[:id]%>
+          <li><label>Price<span class="required">*</span></label>
+          <input type="float" class="form-control" name="fprice" id="price"></li>
 
-<%#= submit_tag "Book", :id => "submit_booking" %>
+          <li><label>Extendable<span class="required">*</span></label>
+          <select class="form-control" id="sel2" id="extendable" name="fextendable">
+            <option>True</option>
+            <option>False</option>
+          </select></li>
 
-<%# end %>
+          <li><label>Status<span class="required">*</span></label>
+          <select class="form-control" id="sel2" id="status" name="fstatus">
+            <option>Available</option>
+            <option>Booked</option>
+            <option>Rented</option>
+          </select></li>
 
-<br>
+          <li><label>View<span class="required">*</span></label>
+          <select class="form-control" id="sel2" id="view" name="fview">
+            <option>Sea</option>
+            <option>Mountain</option>
+          </select></li>
 
-<div class="one-half">
-  <table class="table" style="margin-top: 2.55%; text-align: center; width: 100%">
-    <thead class="thead-dark">
-      <tr>
-        <th style="padding: 20px 10px;">Hotel</th>
-        <th style="padding: 20px 10px;">Room Number</th>
-        <th style="padding: 20px 10px;">View</th>
-        <th style="padding: 20px 10px;">Capacity</th>
-        <th style="padding: 20px 10px;">Price</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><%= @room["ChainName"] %></td>
-        <td><%= @room["RoomID"] %></td>
-        <td><%= @room["View"] %></td>
-        <td><%= @room["Capacity"] %></td>
-        <td><%= @room["Price"] %></td>
-      </tr>
-    </tbody>
-  </table>
+          <li><button type="button" class="btn btn-success" style="margin-top: 2.5%; margin-right: 2.5%">Confirm</button><button type="button" class="btn btn-danger" style="margin-top: 2.5%; margin-right: 2.5%">Cancel</button></li>
 
+        </ul>
+        <%end%>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm"></div>
 </div>
-
-<%= form_tag("/rooms/#{params[:id]}", method: "put") do %>
-
-<div class="one-fourth last">
-  <h2>General</h2>
-  <label>Given Name
-    <span class="required">*</span>
-  </label>
-  <input type="text" class="form-control" name="fname" id="first">
-
-  <label>Family Name
-    <span class="required">*</span>
-  </label>
-  <input type="text" class="form-control" name="lname" id="last">
-
-  <label>Telephone
-    <span class="required">*</span>
-  </label>
-  <input type="text" class="form-control" name="telephone" id="telephone">
-
-  <label>E-Mail
-    <span class="required">*</span>
-  </label>
-  <input type="text" class="form-control" name="email" id="email">
-
-  <% if current_user.user_type == 'employee' %>
-    <label>Customer SSN/SIN
-      <span class="required">*</span>
-    </label>
-    <input type="number" class="form-control" name="customerSSN" id="customerSSN">
-  <% end %>
-
-
-  <label>Check-In Date
-    <span class="required">*</span>
-  </label>
-  <input type="date" class="form-control" name="date_start" id="date_start">
-
-  <label>Check-Out Date
-    <span class="required">*</span>
-  </label>
-  <input type="date" class="form-control" name="date_end" id="date_end">
-
-
-  <!--END form ID contact_form -->
-</div>
-<div class="one-fourth last" style="padding-left: 2.5%">
-  <h2>Billing</h2>
-  <label>Name on Card
-    <span class="required">*</span>
-  </label>
-  <input type="text" class="form-control" name="card_name" id="cardName">
-
-  <label>Card Number
-    <span class="required">*</span>
-  </label>
-  <input type="text" class="form-control" name="card_num" id="cardNum">
-
-  <label title="Card Security Code. 3 digits on back of card.">CSC
-    <span class="required">*</span>
-  </label>
-  <input type="text" class="form-control" name="csc_num" id="cscNum">
-
-  <br>
-
-  <%= submit_tag "Submit", class: "btn btn-dark hidden-submit", :id => "submit_booking" %>
-
-  <% end %>
-
-  <script>
-    var givenName = document.getElementById("first");
-    var familyName = document.getElementById("last");
-    var telephone = document.getElementById("telephone");
-    var email = document.getElementById("email");
-    var inDate = document.getElementById("date_start");
-    var outDate = document.getElementById("date_end");
-    var cardName = document.getElementById("cardName");
-    var cardNum = document.getElementById("cardNum");
-    var cscNum = document.getElementById("cscNum");
-    var submitBooking = document.getElementById("submit_booking");
-
-    var nameRegex = /^[a-zA-Z ]+$/;
-    var emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    var telephoneRegex = /^[0-9]+$/
-    var cardNumRegex = /^[0-9]{16}$/
-    var cscNumRegex = /^[0-9]{3}$/
-
-    givenName.addEventListener("keyup", function () {
-      if(nameRegex.test(givenName.value)){
-        givenName.classList.add("field-success");
-      } else {
-        givenName.classList.remove("field-success");
-      }
-
-      checkAll();
-    });
-    familyName.addEventListener("keyup", function () {
-      if(nameRegex.test(familyName.value)){
-        familyName.classList.add("field-success");
-      } else {
-        familyName.classList.remove("field-success");
-      }
-
-      checkAll();
-    });
-    telephone.addEventListener("keyup", function () {
-      if(telephoneRegex.test(telephone.value)){
-        telephone.classList.add("field-success");
-      } else {
-        telephone.classList.remove("field-success");
-      }
-
-      checkAll();
-    });
-    email.addEventListener("keyup", function () {
-      if(emailRegex.test(email.value)){
-        email.classList.add("field-success");
-      } else {
-        email.classList.remove("field-success");
-      }
-
-      checkAll();
-    });
-    inDate.addEventListener("change", function () {
-      if(!inDate.value == ""){
-        inDate.classList.add("field-success");
-      } else {
-        inDate.classList.remove("field-success");
-      }
-
-      checkAll();
-    });
-    outDate.addEventListener("change", function () {
-      if(!outDate.value == ""){
-        outDate.classList.add("field-success");
-      } else {
-        outDate.classList.remove("field-success");
-      }
-
-      checkAll();
-    });
-    cardName.addEventListener("keyup", function () {
-      if(nameRegex.test(cardName.value)){
-        cardName.classList.add("field-success");
-      } else {
-        cardName.classList.remove("field-success");
-      }
-
-      checkAll();
-    });
-    cardNum.addEventListener("keyup", function () {
-      if(cardNumRegex.test(cardNum.value)){
-        cardNum.classList.add("field-success");
-      } else {
-        cardNum.classList.remove("field-success");
-      }
-
-      checkAll();
-    });
-    cscNum.addEventListener("keyup", function () {
-      if(cscNumRegex.test(cscNum.value)){
-        cscNum.classList.add("field-success");
-      } else {
-        cscNum.classList.remove("field-success");
-      }
-
-      checkAll();
-    });
-    //add all event listeners
-
-    function checkAll(){
-      if (
-        givenName.classList.contains("field-success") &&
-        familyName.classList.contains("field-success") &&
-        telephone.classList.contains("field-success") &&
-        email.classList.contains("field-success") &&
-        inDate.classList.contains("field-success") &&
-        outDate.classList.contains("field-success") &&
-        cardName.classList.contains("field-success") &&
-        cardNum.classList.contains("field-success") &&
-        cscNum.classList.contains("field-success")
-        ){ 
-        submitBooking.classList.remove("hidden-submit");
-    } else {
-      submitBooking.classList.add("hidden-submit");
-    }   
-  }
-</script>
