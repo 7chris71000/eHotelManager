@@ -1,43 +1,73 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<div class="row">
+  <div class="col-sm"></div>
+  <div class="col-sm-6">
+    <div class="card">
+      <div class="card-body">
+        <%= form_tag("/rooms/#{params[:id]}", method: "put") %>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+        <% if current_user.user_type == 'customer' %>
+        <h4 class="card-title" style="color: #FF250D;">Update Customer:</h4>
+        <!--<h4 class="card-title" style="color: #FF250D;">Login</h4>-->
+        <ul> 
+          <li><label>First Name<span class="required">*</span></label>
+          <input type="text" class="form-control" name="ffname" id="fname"></li>
+
+          <li><label>Last Name<span class="required">*</span></label>
+          <input type="text" class="form-control" name="flname" id="lname"></li>
+
+          <li><label>Address<span class="required">*</span></label>
+          <input type="text" class="form-control" name="faddress" id="address"></li>
+
+          <li><label>SSN/SIN<span class="required">*</span></label>
+          <input type="int" class="form-control" name="fssnsin" id="ssnsin"></li>
+
+          <li><label>User ID<span class="required">*</span></label>
+          <input type="text" class="form-control" name="fuserid" id="userid"></li>
+
+          <li><button type="button" class="btn btn-success" style="margin-top: 2.5%; margin-right: 2.5%">Confirm</button><button type="button" class="btn btn-danger" style="margin-top: 2.5%; margin-right: 2.5%">Cancel</button></li>
+        </ul>
+        <% end %>
+
+        <% if current_user.user_type == 'employee' %>
+        <h4 class="card-title" style="color: #FF250D;">Update Employee:</h4>
+        <!--<h4 class="card-title" style="color: #FF250D;">Login</h4>-->
+        <ul> 
+          <li><label>First Name<span class="required">*</span></label>
+          <input type="text" class="form-control" name="ffname" id="fname"></li>
+
+          <li><label>Last Name<span class="required">*</span></label>
+          <input type="text" class="form-control" name="flname" id="lname"></li>
+
+          <li><label>Address<span class="required">*</span></label>
+          <input type="text" class="form-control" name="faddress" id="address"></li>
+
+          <li><label>SSN/SIN<span class="required">*</span></label>
+          <input type="int" class="form-control" name="fssnsin" id="ssnsin"></li>
+
+          <li><label>User ID<span class="required">*</span></label>
+          <input type="text" class="form-control" name="fuserid" id="userid"></li>
+
+          <li><label>Role<span class="required">*</span></label>
+          <select class="form-control" id="sel2" id="role" name="frole">
+            <option>Cleaning Staff</option>
+            <option>Manager</option>
+            <option>Concierge Staff</option>
+            <option>General Manager</option>
+            <option>Headquarters Staff</option>
+            <option>Prostitute</option>
+          </select></li>
+
+          <li><button type="button" class="btn btn-success" style="margin-top: 2.5%; margin-right: 2.5%">Confirm</button><button type="button" class="btn btn-danger" style="margin-top: 2.5%; margin-right: 2.5%">Cancel</button></li>
+        </ul>
+        <% end %>
+
+
+
+
+        <%end%>
+      </div>
+    </div>
   </div>
-
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-    <% if @minimum_password_length %>
-      <br />
-      <em><%= @minimum_password_length %> characters minimum</em>
-    <% end %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-    <%= f.password_field :current_password, autocomplete: "current-password" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Update" %>
-  </div>
-<% end %>
-
-<h3>Cancel my account</h3>
-
-<p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
-
-<%= link_to "Back", :back %>
+  <div class="col-sm"></div>
+</div>
