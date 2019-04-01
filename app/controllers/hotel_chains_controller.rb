@@ -16,6 +16,88 @@ class HotelChainsController < ApplicationController
 	end
 
 	def new
+		@title = "New Hotel Chain"
+		@new_chain = HotelChain.new
+
+	end
+
+	def create
+		chainMaxID = ActiveRecord::Base.connection.execute(
+      "
+      SELECT MAX( ChainID ) FROM hotel_chains;
+      "
+      );
+
+    if (!chainMaxID[0][0].present?)
+      chainMaxID = 0
+    end
+
+		ActiveRecord::Base.connection.execute(
+			"
+			INSERT INTO hotel_chains
+			VALUES 
+			(
+			#{chainMaxID[0][0] + 1}, 
+			'#{params["name"]}', 
+			'#{params["address"]}', 
+			'#{params["NumHotels"]}'
+			);
+			"
+			);
+
+
+		phonesString = params["phones"]
+
+		if(phonesString == "")
+
+		elsif(!phonesString.include? ",")
+			ActiveRecord::Base.connection.execute(
+					"
+					INSERT INTO chain_phone_numbers
+					VALUES 
+					( '#{chainMaxID[0][0] + 1}', '#{phonesString}');
+					"
+					);
+		else
+			phonesArray = phonesString.split(",")
+			phonesArray.each do |phone|
+
+				ActiveRecord::Base.connection.execute(
+					"
+					INSERT INTO chain_phone_numbers
+					VALUES 
+					( '#{chainMaxID[0][0] + 1}', '#{phones}');
+					"
+					);
+			end
+		end
+
+		emailsString = params["emails"]
+
+		if(emailsString == "")
+
+		elsif(!emailsString.include? ",")
+			ActiveRecord::Base.connection.execute(
+					"
+					INSERT INTO email_addresses
+					VALUES 
+					( '#{chainMaxID[0][0] + 1}', '#{emailsString}');
+					"
+					);
+		else
+			emailsArray = emailsString.split(",")
+			emailsArray.each do |phone|
+
+				ActiveRecord::Base.connection.execute(
+					"
+					INSERT INTO email_addresses
+					VALUES 
+					( '#{chainMaxID[0][0] + 1}', '#{emails}');
+					"
+					);
+			end
+		end
+		
 	end
 
 	def show
@@ -40,9 +122,6 @@ class HotelChainsController < ApplicationController
 		@title = "Update Chain"
 		get_chain_name
 		@chain_empty = HotelChain.find(params[:id])
-	end
-
-	def create
 	end
 
 	def update

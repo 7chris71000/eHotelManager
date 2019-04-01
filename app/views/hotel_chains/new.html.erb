@@ -1,0 +1,38 @@
+<div class="row">
+  <div class="col-sm"></div>
+  <div class="col-sm-6">
+    <div class="card">
+      <div class="card-body">
+
+        <h4 class="card-title" style="color: #FF250D;">New Hotel Chain</h4>
+        <%= form_for(@new_chain) do |f| %>
+          <ul> 
+            <li><label>Name<span class="required">*</span></label>
+              <input type="text" class="form-control" name="name">
+            </li>
+
+            <li><label>Office Address<span class="required">*</span></label>
+              <input type="text" class="form-control" name="address">
+            </li>
+
+            <li><label>Number of Hotels<span class="required">*</span></label>
+              <input type="int" class="form-control" name="numhotels">
+            </li>
+
+            <li><label>Contact Numbers<span class="required">* (Separate by commas)</span></label>
+              <input type="text" class="form-control" name="phones">
+            </li>
+
+            <li><label>Email Addresses<span class="required">* (Separate by commas)</span></label>
+              <input type="text" class="form-control" name="emails">
+            </li>
+
+            <%= submit_tag "Confirm", class: "btn btn-success", :style => "margin-top: 2.5%; margin-right: 2.5%" %>
+            <%= link_to "Cancel", filter_path, class: "btn btn-danger", :style => "margin-top: 2.5%; margin-right: 2.5%" %>
+          </ul>
+        <%end%>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm"></div>
+</div>

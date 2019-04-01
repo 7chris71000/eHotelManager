@@ -4,6 +4,9 @@ class HotelsController < ApplicationController
 	end
 
 	def new
+		@title = "New Hotel"
+		get_all_chains
+		@hotel_empty = Hotel.new
 	end
 
 	def show
@@ -16,6 +19,59 @@ class HotelsController < ApplicationController
 	end
 
 	def create
+		hotelMaxID = ActiveRecord::Base.connection.execute(
+      "
+      SELECT MAX( HotelID ) FROM hotels;
+      "
+      );
+
+    if (!hotelMaxID[0][0].present?)
+      hotelMaxID = 0
+    end
+
+		ActiveRecord::Base.connection.execute(
+			"
+			INSERT INTO hotels
+			VALUES 
+			(
+			#{hotelMaxID[0][0] + 1}, 
+			'#{params["address"]}', 
+			'#{params["city"]}', 
+			'#{params["email"]}', 
+			'#{params["numrooms"]}', 
+			'#{params["rating"]}', 
+			'#{params["chain"]}'
+			);
+			"
+			);
+
+
+		phonesString = params["phones"]
+
+		if(phonesString == "")
+
+		elsif(!phonesString.include? ",")
+			ActiveRecord::Base.connection.execute(
+					"
+					INSERT INTO hotel_phone_numbers
+					VALUES 
+					( '#{hotelMaxID[0][0] + 1}', '#{phonesString}');
+					"
+					);
+		else
+			phonesArray = phonesString.split(",")
+			phonesArray.each do |phone|
+
+				ActiveRecord::Base.connection.execute(
+					"
+					INSERT INTO hotel_phone_numbers
+					VALUES 
+					( '#{hotelMaxID[0][0] + 1}', '#{phones}');
+					"
+					);
+			end
+		end
+
 	end
 
 	def update
@@ -144,6 +200,16 @@ class HotelsController < ApplicationController
 				"
 				SELECT * 
 				FROM customer_rooms
+				;
+				"
+				);
+		end
+
+		def get_all_chains
+			@chains = ActiveRecord::Base.connection.execute(
+				"
+				SELECT * 
+				FROM hotel_chains
 				;
 				"
 				);

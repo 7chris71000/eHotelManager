@@ -3,21 +3,21 @@
   <div class="col-sm-6">
     <div class="card">
       <div class="card-body">
-        <%#= form_tag("/hotels/#{params[:id]}", method: "put") %>
+
         <%= form_for(@hotel_empty) do |f| %>
 
-          <h4 class="card-title" style="color: #FF250D;">Update Hotel:</h4>
+          <h4 class="card-title" style="color: #FF250D;">New Hotel:</h4>
           <ul> 
             <li><label>Address<span class="required">*</span></label>
-              <input type="text" class="form-control" name="address" value="<%= @hotel["HotelAddress"] %>">
+              <input type="text" class="form-control" name="address">
             </li>
 
             <li><label>City<span class="required">*</span></label>
-              <input type="text" class="form-control" name="city" value="<%= @hotel["City"] %>">
+              <input type="text" class="form-control" name="city">
             </li>
 
             <li><label>Contact Email<span class="required">*</span></label>
-              <input type="email" class="form-control" name="email" value="<%= @hotel["ContactEmail"] %>">
+              <input type="email" class="form-control" name="email">
             </li>
 
             <li><label>Contact Numbers<span class="required">* (Separate by commas)</span></label>
@@ -25,44 +25,28 @@
             </li>
 
             <li><label>Number Of Rooms<span class="required">*</span></label>
-              <input type="int" class="form-control" name="numrooms" value="<%= @hotel["NoOfRooms"] %>">
+              <input type="int" class="form-control" name="numrooms">
             </li>
 
             <li><label>Rating<span class="required">*</span></label>
               <select class="form-control" name="rating" placeholder="Rating">
-                <% if @hotel["Category"] == 1 %>
-                  <option value="1" selected>1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                <% elsif @hotel["Category"] == 2 %>
-                  <option value="1">1</option>
-                  <option value="2" selected>2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                <% elsif @hotel["Category"] == 3 %>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3" selected>3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                <% elsif @hotel["Category"] == 4 %>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4" selected>4</option>
-                  <option value="5">5</option>
-                <% else %>
                   <option value="1">1</option>
                   <option value="2">2</option>
                   <option value="3">3</option>
                   <option value="4">4</option>
-                  <option value="5" selected>5</option>
+                  <option value="5">5</option>
+              </select>
+            </li>
+
+            <li><label>Hotel Chain<span class="required">*</span></label>
+              <select class="form-control" name="chain" placeholder="Hotel Chain">
+                <% @chains.each do |chain| %>
+                  <option value="<%= chain["ChainID"]%>"><%= chain["ChainName"]%></option>
                 <% end %>
               </select>
             </li>
+
+
 
             <%= submit_tag "Confirm", class: "btn btn-success", :style => "margin-top: 2.5%; margin-right: 2.5%" %>
             <%= link_to "Cancel", filter_path, class: "btn btn-danger", :style => "margin-top: 2.5%; margin-right: 2.5%" %>

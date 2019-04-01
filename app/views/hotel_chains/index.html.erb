@@ -1,6 +1,6 @@
 
-<h2>Results:
-  <%= link_to 'Filter', filter_path, class: "btn btn-info" %>
+<h2>Hotel Chains:
+  <%= link_to 'New Hotel Chain', new_hotel_chain_path, class: "btn btn-success" %>
 </h2>
 
 
@@ -17,8 +17,7 @@
   <tbody>
     <% @chains.each do |chain| %>
       <tr>
-
-        <td><%= link_to chain["ChainName"], "/hotel_chains/#{chain["ChainID"]}", class: "btn btn-success", :style=>'width: 90%;' %></td>
+        <td><%= link_to chain["ChainName"], "/hotel_chains/#{chain["ChainID"]}", class: "btn btn-secondary", :style=>'width: 90%;' %></td>
         <td><%= chain["OfficeAddress"] %></td>
         <td><%= chain["NoOfHotels"] %></td>
         <td><%= link_to 'Update', edit_hotel_chain_path(chain["ChainID"]), class: "btn btn-primary" %></td>
