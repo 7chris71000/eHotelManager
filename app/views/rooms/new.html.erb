@@ -1,0 +1,69 @@
+<div class="row">
+  <div class="col-sm"></div>
+  <div class="col-sm-6">
+    <div class="card">
+      <div class="card-body">
+
+        <%= form_for(@new_room) do |f| %>
+          <h4 class="card-title" style="color: #FF250D;">New Room:</h4>
+          <ul> 
+            <li><label>Price<span class="required">*</span></label>
+              <input type="float" class="form-control" name="price">
+            </li>
+
+            <li><label>Capacity<span class="required">*</span></label>
+              <input type="int" class="form-control" name="capacity">
+            </li>
+
+            <li><label>Extendable<span class="required">*</span></label>
+              <select class="form-control" id="extendable" name="extendable">
+                <option value="True" selected>True</option>
+                <option value="False">False</option>
+              </select>
+            </li>
+
+            <li><label>Status<span class="required">*</span></label>
+              <select class="form-control" name="status">  
+                <option value="Available" selected>Available</option>
+                <option value="Booked">Booked</option>
+                <option value="Rented">Rented</option>
+              </select>
+            </li>
+
+            <li><label>View<span class="required">*</span></label>
+              <select class="form-control" name="view">
+                <option value="Sea" selected>Sea</option>
+                <option value="Mountain">Mountain</option>
+              </select>
+            </li>
+
+            <li><label>Hotel<span class="required">*</span></label>
+              <select class="form-control" name="hotelID">
+                <% @hotels.each do |hotel| %>
+                  <option value="<%= hotel["HotelID"]%>"><%= hotel["HotelID"]%></option>
+                <% end %>
+              </select>
+            </li>
+
+            <li><label>Amenities<span class="required"> (Separate by commas)</span></label>
+              <input type="text" class="form-control" name="amenities">
+            </li>
+
+            <li><label>Problems<span class="required"> (Separate by commas)</span></label>
+              <input type="text" class="form-control" name="problems">
+            </li>
+
+            <li>
+
+              <%= submit_tag "Add", class: "btn btn-success", :style => "margin-top: 2.5%; margin-right: 2.5%" %>
+              <%= link_to "Cancel", filter_path, class: "btn btn-danger", :style => "margin-top: 2.5%; margin-right: 2.5%" %>
+            </li>
+
+          </ul>
+        <% end %>
+
+      </div>
+    </div>
+  </div>
+  <div class="col-sm"></div>
+</div>

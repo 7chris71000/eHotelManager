@@ -1,6 +1,12 @@
 
 <h2>Results:
-  <%= link_to 'Filter', filter_path, class: "btn btn-danger" %>
+  <%= link_to 'Filter', filter_path, class: "btn btn-info" %>
+  <% if current_user.user_type == 'employee' %>
+  <div style="float: right; margin-top: 3px;">
+  <%= link_to 'Add Room', new_room_path, class: "btn btn-success" %>&nbsp;
+    <%= link_to 'Hotel Chains', hotel_chains_path, style: "float: right; margin-top: 3px;", class: "btn btn-info" %>
+  </div>
+  <% end %>
 </h2>
 
 
@@ -39,7 +45,7 @@
       <% if current_user.user_type == 'employee' %>
         <td><%= link_to room["Status"],"/list" ,class: "btn btn-secondary btn-sm" %></td>
       <% end %>
-      <td><%= room["View"] %></td>
+      <td><%= room["WindowView"] %></td>
       <td><%= room["Capacity"] %></td>
       <td><%= link_to 'Book', edit_room_path(room["RoomID"]), class: "btn btn-success" %></td>
       <% if current_user.user_type == 'employee' %>

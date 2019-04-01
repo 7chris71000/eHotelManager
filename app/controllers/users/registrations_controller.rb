@@ -21,7 +21,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # POST /resource
   def create
 
-
     firstName = params["fname"]
     lastName = params["lname"]
     address = params["address"]

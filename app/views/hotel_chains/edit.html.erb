@@ -3,21 +3,32 @@
   <div class="col-sm-6">
     <div class="card">
       <div class="card-body">
-        <%= form_tag("/hotels/#{params[:id]}", method: "put") %>
-        <h4 class="card-title" style="color: #FF250D;">Update Hotel Chain:</h4>
-        <!--<h4 class="card-title" style="color: #FF250D;">Login</h4>-->
+
+        <h4 class="card-title" style="color: #FF250D;">Update <%= @chain_name["ChainName"] %></h4>
+        <%= form_for(@chain_empty) do |f| %>
         <ul> 
           <li><label>Name<span class="required">*</span></label>
-          <input type="text" class="form-control" name="fname" id="name"></li>
+            <input type="text" class="form-control" name="name" value="<%= @chain_name["ChainName"] %>">
+          </li>
 
           <li><label>Office Address<span class="required">*</span></label>
-          <input type="text" class="form-control" name="faddress" id="address"></li>
+            <input type="text" class="form-control" name="address" value="<%= @chain_name["OfficeAddress"] %>">
+          </li>
 
           <li><label>Number of Hotels<span class="required">*</span></label>
-          <input type="int" class="form-control" name="fnumhotels" id="numofhotels"></li>
+            <input type="int" class="form-control" name="numhotels" value="<%= @chain_name["NoOfHotels"] %>">
+          </li>
 
-          <li><button type="button" class="btn btn-success" style="margin-top: 2.5%; margin-right: 2.5%">Confirm</button><button type="button" class="btn btn-danger" style="margin-top: 2.5%; margin-right: 2.5%">Cancel</button></li>
+          <li><label>Contact Numbers<span class="required">* (Separate by commas)</span></label>
+            <input type="text" class="form-control" name="phones">
+          </li>
 
+          <li><label>Email Addresses<span class="required">* (Separate by commas)</span></label>
+            <input type="text" class="form-control" name="emails">
+          </li>
+
+          <%= submit_tag "Confirm", class: "btn btn-success", :style => "margin-top: 2.5%; margin-right: 2.5%" %>
+          <%= link_to "Cancel", filter_path, class: "btn btn-danger", :style => "margin-top: 2.5%; margin-right: 2.5%" %>
         </ul>
         <%end%>
       </div>

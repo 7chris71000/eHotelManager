@@ -1,7 +1,83 @@
 class HotelsController < ApplicationController
 
 	def index
+	end
 
+	def new
+	end
+
+	def show
+	end
+
+	def edit
+		@title = "Update Hotel"
+		set_hotel
+		@hotel_empty = Hotel.find(params[:id])
+	end
+
+	def create
+	end
+
+	def update
+		set_hotel
+
+		ActiveRecord::Base.connection.execute(
+			"
+			UPDATE hotels
+			SET 
+			HotelAddress = '#{params["address"]}',
+			City = '#{params["city"]}',
+			ContactEmail = '#{params["email"]}',
+			NoOfRooms = '#{params["numrooms"]}',
+			Category = '#{params["rating"]}',
+			ChainID = '#{@chainID}'
+			WHERE HotelID = #{params[:id]}
+			;
+			"
+			);
+
+		# Add to Amenitites
+		phonesString = params["phones"]
+
+		if(phonesString == "")
+
+		elsif(!phonesString.include? ",")
+			ActiveRecord::Base.connection.execute(
+					"
+					INSERT INTO hotel_phone_numbers
+					VALUES 
+					( '#{params[:id]}', '#{phonesString}');
+					"
+					);
+		else
+			phonesArray = phonesString.split(",")
+			phonesArray.each do |phone|
+
+				ActiveRecord::Base.connection.execute(
+					"
+					INSERT INTO hotel_phone_numbers
+					VALUES 
+					( '#{params[:id]}', '#{phones}');
+					"
+					);
+			end
+		end
+
+	end
+
+	def destroy
+		ActiveRecord::Base.connection.execute(
+			"
+			DELETE 
+			FROM hotels
+			WHERE HotelID = #{params[:id]}
+			;
+			"
+			);
+	end
+
+	def results
+		
 		@title = "Results"
 
 		@form_data = params
@@ -33,12 +109,12 @@ class HotelsController < ApplicationController
 
 		@rooms = results
 
-		print("\n\n\n\n\n\n\n#{@rooms}\n\n\n\n\n\n\n\n\n")
+		# print("\n\n\n\n\n\n\n#{@rooms}\n\n\n\n\n\n\n\n\n")
 
 		# take out results that are booked in time requested
 		get_all_rooms
 
-		print("\n\n\n\n\n\n\n#{@booked_rooms}\n\n\n\n\n\n\n\n\n")
+		# print("\n\n\n\n\n\n\n#{@booked_rooms}\n\n\n\n\n\n\n\n\n")
 
 		@booked_rooms.each do |booked_room|
 			a = booked_room["Checkin"]
@@ -58,37 +134,7 @@ class HotelsController < ApplicationController
 			end
 
 		end
-	 
-	end
 
-	def new
-	end
-
-	def show
-	end
-
-	def edit
-	end
-
-	def create
-	end
-
-	def update
-	end
-
-	def destroy
-	end
-
-	def list
-		print("\n\n\n\n\n\n#{params[:id]}\n\n\n\n\n\n\n\n")
-		@hotels = ActiveRecord::Base.connection.execute(
-				"
-				SELECT * 
-				FROM hotels
-				ORDER BY HotelID
-				;
-				"
-				);
 	end
 
 	private
@@ -101,6 +147,25 @@ class HotelsController < ApplicationController
 				;
 				"
 				);
+		end
+
+		def set_hotel
+			hotelID = params[:id]
+
+			hotel = ActiveRecord::Base.connection.execute(
+				"
+				SELECT * 
+				FROM hotels h
+				JOIN hotel_chains hc
+				on h.ChainID = hc.ChainID
+				WHERE HotelID = #{hotelID}
+				;
+				"
+				);
+
+			@hotel = hotel.first()
+			@chainID = @hotel["ChainID"]
+
 		end
 
 end

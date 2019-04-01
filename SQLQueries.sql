@@ -37,7 +37,7 @@ CREATE TABLE rooms (
 	Capacity int,
 	Extendable boolean,
 	Status varchar(255),
-	View varchar(255),
+	WindowView varchar(255),
 	HotelID int,
 	primary key(RoomID),
 	foreign key(HotelID) references hotels
@@ -90,6 +90,12 @@ CREATE TABLE amenities (
 	foreign key(RoomID) references rooms
 );
 
+CREATE TABLE problems (
+	RoomID int,
+	Problem varchar(255),
+	foreign key(RoomID) references rooms
+);
+
 CREATE TABLE roles (
 	EmployeeID int,
 	Role varchar(255),
@@ -102,10 +108,16 @@ CREATE TABLE email_addresses (
 	foreign key(ChainID) references hotel_chains
 );
 
-CREATE TABLE phone_numbers (
+CREATE TABLE chain_phone_numbers (
 	ChainID int,
 	PhoneNo numeric(10,0),
 	foreign key(ChainID) references hotel_chains
+);
+
+CREATE TABLE hotel_phone_numbers (
+	HotelID int,
+	PhoneNo numeric(10,0),
+	foreign key(HotelID) references hotels
 );
 
 -- Hotel Chain and Hotel Data
@@ -174,47 +186,89 @@ VALUES
 	( 2, 140.00, 5, 1, "Rented", "Mountain", 35)
 	;
 
-CREATE
-  TRIGGER deconstruct_rooms BEFORE DELETE
-  ON hotels
-  FOR EACH ROW BEGIN
-      DELETE FROM rooms
-          WHERE HotelID = DELETEDROW.HotelID;
-  END;
-END;
+
 
 CREATE
-  TRIGGER deconstruct_hotel BEFORE DELETE
-  ON hotels
-  FOR EACH ROW BEGIN
-      DELETE FROM customer_rooms JOIN rooms ON customer_room.roomID=rooms.roomID
-          WHERE HotelID = DELETEDROW.HotelID;
-  END;
-END;
+    TRIGGER deconstruct_hotel BEFORE DELETE
+    ON hotels
+    FOR EACH ROW BEGIN
+        DELETE FROM rooms
+            WHERE rooms.HotelID = OLD.HotelID;
+    END;
+
+CREATE
+  	TRIGGER deconstruct_room_rooms BEFORE DELETE
+  	ON rooms
+  	FOR EACH ROW BEGIN
+      DELETE FROM customer_rooms
+          WHERE customer_rooms.RoomID = OLD.roomID;
+  	END;
 
 CREATE
     TRIGGER deconstruct_hotel_chain BEFORE DELETE
     ON hotel_chains
     FOR EACH ROW BEGIN
         DELETE FROM hotels
-            WHERE ChainID = DELETEDROW.ChainID;
+            WHERE hotels.ChainID = OLD.ChainID;
     END;
-END;
 
 CREATE
     TRIGGER deconstruct_employees BEFORE DELETE
     ON hotels
     FOR EACH ROW BEGIN
         DELETE FROM employees
-            WHERE HotelID = DELETEDROW.HotelID;
+            WHERE employees.HotelID = OLD.HotelID;
     END;
-END;
+
+-- Attribute Table Triggers    
 
 CREATE
-    TRIGGER deconstruct_room_rooms BEFORE DELETE
+    TRIGGER deconstruct_fk_amenities BEFORE DELETE
     ON rooms
     FOR EACH ROW BEGIN
-        DELETE FROM customer_rooms
-            WHERE roomlID = DELETEDROW.roomID;
+        DELETE FROM amenities 
+        WHERE amenities.RoomID = OLD.RoomID;
     END;
-END;
+
+
+CREATE
+    TRIGGER deconstruct_fk_problems BEFORE DELETE
+    ON rooms
+    FOR EACH ROW BEGIN
+        DELETE FROM problems
+        WHERE problems.RoomID = OLD.RoomID;
+    END;
+
+
+CREATE
+    TRIGGER deconstruct_fk_roles BEFORE DELETE
+    ON employees
+    FOR EACH ROW BEGIN
+        DELETE FROM roles 
+        WHERE roles.EmployeeID = OLD.EmployeeID;
+    END;
+
+
+CREATE
+    TRIGGER deconstruct_fk_emailaddresses BEFORE DELETE
+    ON hotel_chains
+    FOR EACH ROW BEGIN
+        DELETE FROM email_addresses 
+        WHERE email_addresses.ChainID = OLD.ChainID;
+    END;
+
+CREATE
+    TRIGGER deconstruct_fk_chainphonenumbers BEFORE DELETE
+    ON hotel_chains
+    FOR EACH ROW BEGIN
+        DELETE FROM chain_phone_numbers 
+        WHERE chain_phone_numbers.ChainID = OLD.ChainID;
+    END;
+
+CREATE
+    TRIGGER deconstruct_fk_hotelphonenumbers BEFORE DELETE
+    ON hotels
+    FOR EACH ROW BEGIN
+        DELETE FROM hotel_phone_numbers 
+        WHERE hotel_phone_numbers.HotelID = OLD.HotelID;
+    END;
