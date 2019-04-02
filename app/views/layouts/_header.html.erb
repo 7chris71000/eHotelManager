@@ -4,9 +4,9 @@
   
   <% if user_signed_in? %>
   <!-- this can be the users name -->
-  <%= link_to "Filter | ", filter_path, :class=>"header-link"%>
+  	<%= link_to "Filter | ", filter_path, :class=>"header-link", style: "margin-left: 75px;"%>
     <%= link_to "CJ's EBookings", filter_path, :class=>"site_title"%>
-    <%= link_to " | Sign Out", destroy_user_session_path, :class=>"header-link", data: {method: :delete} %>
+    <%= link_to "| Settings", settings_path, :class=>"header-link" %>
   <% else %>
     <%= link_to "CJ's EBookings", root_path, :class=>"site_title"%>
   <% end %>

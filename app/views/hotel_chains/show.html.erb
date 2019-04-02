@@ -28,8 +28,8 @@
       <td><%= hotel["ContactEmail"] %></td>
       <td><%= hotel["NoOfRooms"] %></td>
       <td><%= hotel["Category"] %></td>
-      <td><%= link_to 'Update', edit_hotel_path(hotel["HotelID"]), class: "btn btn-primary" %></td>
-      <td><%= link_to "Delete", "/hotels/#{hotel["HotelID"]}", {method: :delete, data: {confirm: "Are you sure you want to delete this hotel?"}, class: "btn btn-danger" } %></td>
+      <td><%= link_to 'Update', edit_hotel_path(hotel["HotelID"]), class: "btn btn-outline-primary" %></td>
+      <td><%= link_to "Delete", "/hotels/#{hotel["HotelID"]}", {method: :delete, data: {confirm: "Are you sure you want to delete this hotel?"}, class: "btn btn-outline-danger" } %></td>
     </tr>
     <% end %>
   </tbody>

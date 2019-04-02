@@ -18,4 +18,8 @@ class PagesController < ApplicationController
 
 	end
 
+	def settings
+		@title = "User Settings"
+	end
+
 end
