@@ -16,4 +16,14 @@ Rails.application.routes.draw do
   resources :customers
   resources :employees
 
+  get "/rooms/:id/checkout" => "rooms#checkout"
+
+  resources :rooms do
+  member do
+    patch :checkoutForm
+    put :checkoutForm
+  end
+end
+
+
 end

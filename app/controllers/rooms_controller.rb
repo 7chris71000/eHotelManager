@@ -214,7 +214,13 @@ class RoomsController < ApplicationController
 		@title = "Success"
 	end
 
-	def holdingForCheckout
+	def checkout
+		@title = "Checkout"
+		set_room
+		@checkout_empty = Room.find(params[:id])
+	end
+
+	def checkoutForm
 		start = params["date_start"]
 		ending = params["date_end"]
 

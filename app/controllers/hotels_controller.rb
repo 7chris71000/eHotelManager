@@ -140,11 +140,13 @@ class HotelsController < ApplicationController
 		params["capacity"] != "" ? capacity = params["capacity"] : capacity = "%"
 		params["chain"] != "" ? chain = params["chain"] : chain = "%"
 		params["rating"] != "" ? rating = params["rating"] : rating = "%"
+		params["city"] != "" ? city = params["city"] : city = "%"
 		params["number_of_rooms"] != "" ? noOfRooms = params["number_of_rooms"] : noOfRooms = "%"
 		params["price"] != "" ? price = params["price"] : price = "%" 
 		params["date_start"] != "" ? date_start = params["date_start"] : date_start = "%" 
 		params["date_end"] != "" ? date_end = params["date_end"] : date_end = "%" 
 
+		
 		results = ActiveRecord::Base.connection.execute(
 				"
 				SELECT * 
@@ -156,6 +158,7 @@ class HotelsController < ApplicationController
 				WHERE Capacity LIKE '#{capacity}'
 				AND ChainName LIKE '#{chain}'
 				AND Category LIKE '#{rating}'
+				AND City LIKE '#{city}'
 				AND NoOfRooms LIKE '#{noOfRooms}'
 				AND Price LIKE '#{price}'
 				ORDER BY rooms.RoomID
