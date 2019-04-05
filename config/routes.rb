@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   get "/settings" => "pages#settings"
   resources :rooms
   get "/success" => "rooms#success"
+  get "/success_room" => "rooms#success_room"
+  get "/error" => "rooms#error"
   resources :hotels
   get "/results" => "hotels#results"
   resources :hotel_chains
@@ -17,6 +19,7 @@ Rails.application.routes.draw do
   resources :employees
 
   get "/rooms/:id/checkout" => "rooms#checkout"
+  get "/rooms/:id/checkoutForm" => "rooms#checkoutForm"
 
   resources :rooms do
   member do

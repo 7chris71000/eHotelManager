@@ -26,8 +26,20 @@
 						</li>
 						
 						<li>
+							<h5 style="color: #FF250D; padding: 2.5% 0 1.5% 0;">Hotel Address:</h5>
+							<select class="form-control" id="hotel-sel" name="hotel-address">
+								<option value="" selected>All</option>
+								<% @hotels.each do |hotel| %>
+									<option value="<%= hotel["HotelAddress"] %>">
+										<%= hotel["HotelAddress"] %>
+									</option>
+								<% end %>
+							</select>
+						</li>
+
+						<li>
 							<h5 style="color: #FF250D; padding: 2.5% 0 1.5% 0;">Hotel Chain:</h5>
-							<select class="form-control" id="hotel-sel" name="chain">
+							<select class="form-control" id="cahin-sel" name="chain">
 								<option value="" selected>All</option>
 								<% @hotel_chains.each do |chain| %>
 									<option value="<%= chain["ChainName"] %>">

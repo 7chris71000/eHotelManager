@@ -17,13 +17,13 @@
       <th>Contact Email</th>
       <th>Number of Rooms</th>
       <th>Star Rating</th>
-      <th>Price</th>
+      <th>Price($)</th>
       <th>Hotel Chain</th>
-      <% if current_user.user_type == 'employee' %>
-      <th>Status</th>
-      <% end %>
       <th>View</th>
       <th>Capacity</th>
+      <% if current_user.user_type == 'employee' %>
+        <th>Change Status</th>
+      <% end %>
       <th>Book Room</th>
       <% if current_user.user_type == 'employee' %>
       <th>Update Room</th>
@@ -42,11 +42,11 @@
       <td><%= room["Category"] %></td>
       <td><%= room["Price"] %></td>
       <td><%= room["ChainName"]%></td>
+      <td><%= room["WindowView"] %></td>
+      <td><%= room["Capacity"] %></td>
       <% if current_user.user_type == 'employee' %>
         <td><%= link_to room["Status"], edit_room_path(room["RoomID"]),class: "btn btn-outline-secondary btn-sm" %></td>
       <% end %>
-      <td><%= room["WindowView"] %></td>
-      <td><%= room["Capacity"] %></td>
       <td><%= link_to 'Book', "rooms/#{room['RoomID']}/checkout", class: "btn btn-success" %></td>
       <% if current_user.user_type == 'employee' %>
       <td><%= link_to 'Update', edit_room_path(room["RoomID"]), class: "btn btn-outline-primary" %></td>

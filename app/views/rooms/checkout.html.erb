@@ -39,7 +39,7 @@
 </div>
 
 <%= form_tag(checkoutForm_room_path, method: "put") do %>
-        <%#= form_for(@checkout_empty) do |f| %>
+<%#= form_for(@checkout_empty) do |f| %>
 
 
 <div class="one-fourth last">
@@ -65,10 +65,10 @@
   <input type="text" class="form-control" name="email" id="email">
 
   <% if current_user.user_type == 'employee' %>
-    <label>Customer SSN/SIN
-      <span class="required">*</span>
-    </label>
-    <input type="number" class="form-control" name="customerSSN" id="customerSSN">
+  <label>Customer SSN/SIN
+    <span class="required">*</span>
+  </label>
+  <input type="number" class="form-control" name="customerSSN" id="customerSSN">
   <% end %>
 
 

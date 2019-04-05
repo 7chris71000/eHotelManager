@@ -97,7 +97,7 @@ class HotelChainsController < ApplicationController
 					);
 			end
 		end
-		
+		render 'success_chain_add'
 	end
 
 	def show
@@ -189,6 +189,8 @@ class HotelChainsController < ApplicationController
 			end
 		end
 
+		render 'success_chain'
+
 	end
 
 	def destroy
@@ -200,6 +202,19 @@ class HotelChainsController < ApplicationController
 			;
 			"
 			);
+		render 'success_chain_delete'
+	end
+
+	def success_chain
+		@title = "Successful Update"
+	end
+
+	def success_chain_delete
+		@title = "Successful Delete"
+	end
+
+	def success_chain_add
+		@title = "Successful Addition"
 	end
 
 	private

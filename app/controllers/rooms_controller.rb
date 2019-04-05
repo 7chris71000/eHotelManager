@@ -98,6 +98,8 @@ class RoomsController < ApplicationController
 					);
 			end
 		end
+
+		render 'success_room_add'
 	end
 
 	def show
@@ -186,6 +188,9 @@ class RoomsController < ApplicationController
 					);
 			end
 		end
+
+		render 'success_room'
+
 	end
 
 	def destroy
@@ -208,10 +213,28 @@ class RoomsController < ApplicationController
 			"
 			);
 
+		render 'success_room_delete'
+
 	end
 
 	def success
 		@title = "Success"
+	end
+
+	def success_room
+		@title = "Success"
+	end
+
+	def success_room_delete
+		@title = "Successful Deletion"
+	end
+
+	def success_room_add
+		@title = "Successful Addition"
+	end
+
+	def error
+		@title = "Error"
 	end
 
 	def checkout
@@ -221,55 +244,57 @@ class RoomsController < ApplicationController
 	end
 
 	def checkoutForm
-		start = params["date_start"]
-		ending = params["date_end"]
+		begin
+			start = params["date_start"]
+			ending = params["date_end"]
 
-		get_all_rooms
+			get_all_rooms
 
-		noVacancy = false
+			noVacancy = false
 
-		@booked_rooms.each do |room|
+			@booked_rooms.each do |room|
 
-			a = room["Checkin"]
-			b = room["Checkout"]
-			n = start
-			m = ending
+				a = room["Checkin"]
+				b = room["Checkout"]
+				n = start
+				m = ending
 
-			# Checkin and checkout ~between current
-			if (n.between?(a,b)) or (m.between?(a,b)) or (n < a and b < m) or (n >= m)
-				noVacancy = true
+				# Checkin and checkout ~between current
+				if (n.between?(a,b)) or (m.between?(a,b)) or (n < a and b < m) or (n >= m)
+					noVacancy = true
+				end
+
+				break if noVacancy
 			end
 
-			break if noVacancy
+			if current_user.user_type == 'customer'
+				# user signed in is customer
+				get_user_customer
+			else
+				get_user_employee
+			end
+
+			if noVacancy
+				# Do not add to database and send back to update form 
+				render 'error'
+				return
+			else 
+				# Update database 
+				print("\nUpdating the Database\n\n")
+				
+				ActiveRecord::Base.connection.execute(
+					"
+					INSERT INTO customer_rooms
+					VALUES 
+					( #{params[:id]}, #{@online['CustomerID']}, '#{start}', '#{ending}');
+					"
+					);
+			end
+
+			render 'success'
+		rescue
+			render 'error'
 		end
-
-		if current_user.user_type == 'customer'
-			# user signed in is customer
-			get_user_customer
-		else
-			get_user_employee
-		end
-
-		if noVacancy
-			# Do not add to database and send back to update form 
-			print("\nError in adding room due to times requested.\n\n")
-			redirect_to edit_room_path
-			return
-
-		else 
-			# Update database 
-			print("\nUpdating the Database\n\n")
-			
-			ActiveRecord::Base.connection.execute(
-				"
-				INSERT INTO customer_rooms
-				VALUES 
-				( #{params[:id]}, #{@online['CustomerID']}, '#{start}', '#{ending}');
-				"
-				);
-		end
-
-		render 'success'
 	end
 
 
