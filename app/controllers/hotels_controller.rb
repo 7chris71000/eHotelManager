@@ -192,6 +192,9 @@ class HotelsController < ApplicationController
 		# print("\n\n\n\n\n\n\n#{@booked_rooms}\n\n\n\n\n\n\n\n\n")
 
 		@booked_rooms.each do |booked_room|
+			if(date_start || date_end == '%')
+				return
+			end
 			a = booked_room["Checkin"]
 			b = booked_room["Checkout"]
 			n = date_start
