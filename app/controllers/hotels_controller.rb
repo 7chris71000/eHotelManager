@@ -71,7 +71,7 @@ class HotelsController < ApplicationController
 					);
 			end
 		end
-
+		render 'success_hotel_add'
 	end
 
 	def update
@@ -118,7 +118,19 @@ class HotelsController < ApplicationController
 					);
 			end
 		end
+		render 'success_hotel'
+	end
 
+	def success_hotel
+		@title = "Successful Update"
+	end
+
+	def success_hotel_delete
+		@title = "Successful Update"
+	end
+
+	def success_hotel_add
+		@title = "Successful Addition"
 	end
 
 	def destroy
@@ -130,6 +142,8 @@ class HotelsController < ApplicationController
 			;
 			"
 			);
+
+		render 'success_hotel_delete'
 	end
 
 	def results
@@ -140,11 +154,14 @@ class HotelsController < ApplicationController
 		params["capacity"] != "" ? capacity = params["capacity"] : capacity = "%"
 		params["chain"] != "" ? chain = params["chain"] : chain = "%"
 		params["rating"] != "" ? rating = params["rating"] : rating = "%"
+		params["city"] != "" ? city = params["city"] : city = "%"
+		params["hotel-address"] != "" ? hotel_address = params["hotel-address"] : hotel_address = "%"
 		params["number_of_rooms"] != "" ? noOfRooms = params["number_of_rooms"] : noOfRooms = "%"
 		params["price"] != "" ? price = params["price"] : price = "%" 
 		params["date_start"] != "" ? date_start = params["date_start"] : date_start = "%" 
 		params["date_end"] != "" ? date_end = params["date_end"] : date_end = "%" 
 
+		
 		results = ActiveRecord::Base.connection.execute(
 				"
 				SELECT * 
@@ -156,6 +173,8 @@ class HotelsController < ApplicationController
 				WHERE Capacity LIKE '#{capacity}'
 				AND ChainName LIKE '#{chain}'
 				AND Category LIKE '#{rating}'
+				AND City LIKE '#{city}'
+				AND HotelAddress LIKE '#{hotel_address}'
 				AND NoOfRooms LIKE '#{noOfRooms}'
 				AND Price LIKE '#{price}'
 				ORDER BY rooms.RoomID
